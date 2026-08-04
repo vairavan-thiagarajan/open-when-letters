@@ -130,6 +130,20 @@ body {
     radial-gradient(ellipse at 80% 90%, rgb(26 51 0 / 0.03), transparent 55%);
 }
 
+/* Footer marquee — CSS-driven so it runs on the compositor and stays in
+   motion even while the element is off-screen (JS/rAF ticks get throttled). */
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ticker-track {
+  animation: ticker-scroll 32s linear infinite;
+}
+
 /* Hide scrollbar utility for carousels */
 .no-scrollbar::-webkit-scrollbar {
   display: none;

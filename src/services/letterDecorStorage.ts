@@ -14,20 +14,21 @@ import { supabase } from './supabase'
 const BUCKET = 'letter-decor'
 
 function extFromBlob(blob: Blob): string {
+  const type = (blob.type || '').split(';')[0].trim().toLowerCase()
   const map: Record<string, string> = {
     'image/webp': 'webp',
     'image/jpeg': 'jpg',
     'image/png': 'png',
+    'audio/mpeg': 'mp3',
+    'audio/mp3': 'mp3',
+    'audio/wav': 'wav',
+    'audio/aac': 'aac',
+    'audio/webm': 'webm',
+    'audio/ogg': 'ogg',
+    'audio/mp4': 'm4a',
+    'audio/x-m4a': 'm4a',
   }
-  if (map[blob.type]) return map[blob.type]
-  const mpeg = /^audio\/(mpeg|mp3)$/
-  if (mpeg.test(blob.type)) return 'mp3'
-  if (blob.type === 'audio/wav') return 'wav'
-  if (blob.type === 'audio/aac') return 'aac'
-  if (blob.type === 'audio/webm') return 'webm'
-  if (blob.type === 'audio/ogg') return 'ogg'
-  if (blob.type === 'audio/mp4') return 'm4a'
-  return 'bin'
+  return map[type] ?? 'bin'
 }
 
 async function readAsDataURL(blob: Blob): Promise<string> {

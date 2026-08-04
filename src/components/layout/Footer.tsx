@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { EASE, springs } from '@/utils/anim'
 import { cn } from '@/utils/cn'
@@ -93,8 +93,6 @@ function FooterLink({ to, children }: { to: string; children: ReactNode }) {
 }
 
 export function Footer() {
-  const reduce = useReducedMotion()
-
   return (
     <footer className="relative overflow-hidden bg-forest-ink text-cream-paper">
       {/* soft colour glows */}
@@ -113,11 +111,7 @@ export function Footer() {
 
       {/* ticker ribbon */}
       <div className="relative overflow-hidden border-y border-forest-ink/15 bg-highlighter-yellow py-3 sm:py-4">
-        <motion.div
-          className="flex w-max items-center whitespace-nowrap will-change-transform"
-          animate={reduce ? undefined : { x: ['0%', '-50%'] }}
-          transition={{ duration: 32, ease: 'linear', repeat: Infinity }}
-        >
+        <div className="ticker-track flex w-max items-center whitespace-nowrap will-change-transform">
           {[0, 1].map((copy) => (
             <div key={copy} aria-hidden={copy === 1} className="flex items-center">
               {tickerPhrases.map((phrase) => (
@@ -130,7 +124,7 @@ export function Footer() {
               ))}
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       <div className="relative mx-auto max-w-6xl px-5 pt-20 pb-10 sm:px-8">

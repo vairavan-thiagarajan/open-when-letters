@@ -489,7 +489,7 @@ export function BuilderPage() {
                   <p className="mb-2 text-xs font-semibold tracking-widest font-mono text-forest-ink uppercase">
                     Scan to open
                   </p>
-                  <div className="flex items-center gap-4 rounded-2xl border border-line bg-paper p-4">
+                  <div className="flex flex-col items-center gap-4 rounded-2xl border border-line bg-paper p-4 text-center sm:flex-row sm:text-left">
                     <QRCodeCard value={publicUrl} size={108} className="w-28 shrink-0" />
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-medium text-ink">Share anywhere</p>
@@ -497,7 +497,12 @@ export function BuilderPage() {
                         Point a camera at the code, or share the link on any app.
                       </p>
                     </div>
-                    <ShareButton url={publicUrl} label="Share" variant="outline" />
+                    <ShareButton
+                      url={publicUrl}
+                      label="Share"
+                      variant="outline"
+                      className="w-full sm:w-auto"
+                    />
                   </div>
                 </div>
 

@@ -11,7 +11,7 @@ interface AudioAttachmentProps {
   onChange?: (url: string) => void
 }
 
-type Status = 'idle' | 'uploading' | 'error'
+type Status = 'idle' | 'uploading' | 'error' | 'mic-denied' | 'unsupported'
 
 const ACCEPTED_AUDIO = [
   'audio/mpeg',
@@ -25,6 +25,25 @@ const ACCEPTED_AUDIO = [
 ]
 
 const MAX_AUDIO_BYTES = 10 * 1024 * 1024
+
+/**
+ * Recording codecs in order of preference. Safari/iOS only supports MP4/AAC,
+ * so it must be requested explicitly — otherwise the platform default differs
+ * and the file can't be used everywhere.
+ */
+const AUDIO_MIME_CANDIDATES = [
+  'audio/mp4;codecs=mp4a.40.2',
+  'audio/mp4',
+  'audio/aac',
+  'audio/webm;codecs=opus',
+  'audio/webm',
+  'audio/ogg;codecs=opus',
+]
+
+function pickAudioMimeType(): string {
+  if (typeof MediaRecorder === 'undefined' || !MediaRecorder.isTypeSupported) return ''
+  return AUDIO_MIME_CANDIDATES.find((candidate) => MediaRecorder.isTypeSupported(candidate)) ?? ''
+}
 
 function formatTime(seconds: number): string {
   if (!Number.isFinite(seconds)) return '0:00'
@@ -163,19 +182,30 @@ export function AudioAttachment({ value, letterId, onChange }: AudioAttachmentPr
 
   const startRecording = useCallback(async () => {
     if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') {
-      setStatus('error')
+      setStatus('unsupported')
       return
     }
     setStatus('idle')
+
+    let stream: MediaStream
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      const recorder = new MediaRecorder(stream)
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+    } catch (error) {
+      const name = error instanceof DOMException ? error.name : ''
+      setStatus(name === 'NotAllowedError' || name === 'PermissionDeniedError' ? 'mic-denied' : 'error')
+      return
+    }
+
+    try {
+      const mimeType = pickAudioMimeType()
+      const recorder = new MediaRecorder(stream, mimeType ? { mimeType } : {})
       chunksRef.current = []
       recorder.ondataavailable = (event) => {
         if (event.data.size > 0) chunksRef.current.push(event.data)
       }
       recorder.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: recorder.mimeType })
+        const type = (mimeType || recorder.mimeType || 'audio/mp4').split(';')[0].trim()
+        const blob = new Blob(chunksRef.current, { type })
         stream.getTracks().forEach((track) => track.stop())
         mediaRef.current = null
         setRecording(false)
@@ -185,6 +215,7 @@ export function AudioAttachment({ value, letterId, onChange }: AudioAttachmentPr
       recorder.start()
       setRecording(true)
     } catch {
+      stream.getTracks().forEach((track) => track.stop())
       setStatus('error')
     }
   }, [upload])
@@ -294,6 +325,16 @@ export function AudioAttachment({ value, letterId, onChange }: AudioAttachmentPr
       {status === 'error' && (
         <p className="mt-2 text-xs font-medium text-terracotta">
           That audio couldn't be used. Try an MP3, WAV or AAC file under 10&nbsp;MB.
+        </p>
+      )}
+      {status === 'mic-denied' && (
+        <p className="mt-2 text-xs font-medium text-terracotta">
+          Microphone access was blocked. Allow the mic in your browser settings, then try again.
+        </p>
+      )}
+      {status === 'unsupported' && (
+        <p className="mt-2 text-xs font-medium text-terracotta">
+          Live recording isn't supported in this browser — upload an audio file instead.
         </p>
       )}
       {editor && !value && status === 'idle' && (
