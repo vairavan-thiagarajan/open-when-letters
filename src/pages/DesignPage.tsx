@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { Button } from '@/components/ui/Button'
 import { Reveal } from '@/components/ui/Reveal'
+import { useToast } from '@/components/ui/toastContext'
 import { usePageMeta } from '@/utils/meta'
 import { cn } from '@/utils/cn'
 
@@ -177,6 +178,64 @@ function SectionCard({ children, className }: { children: ReactNode; className?:
   )
 }
 
+function ColorSwatch({ color }: { color: (typeof colors)[number] }) {
+  const toast = useToast()
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(color.hex)
+      toast('Copied!')
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 1500)
+    } catch {
+      toast('Could not copy')
+    }
+  }
+
+  return (
+    <div className="overflow-hidden rounded-2xl border border-line bg-paper shadow-soft">
+      <div className={cn('flex h-24 items-end p-3', color.className)}>
+        <button
+          type="button"
+          onClick={handleCopy}
+          title={`Copy ${color.hex}`}
+          aria-label={`Copy colour code ${color.hex}`}
+          className="inline-flex items-center gap-1.5 rounded-md bg-cream/85 px-2 py-0.5 font-mono text-xs font-semibold text-forest-ink transition-transform duration-200 hover:scale-105 active:scale-95"
+        >
+          {copied ? (
+            <svg viewBox="0 0 24 24" fill="none" className="h-3.5 w-3.5" aria-hidden>
+              <path
+                d="M5 13l4 4L19 7"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" className="h-3.5 w-3.5" aria-hidden>
+              <rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" strokeWidth="2" />
+              <path
+                d="M5 15V5a2 2 0 0 1 2-2h10"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          )}
+          {color.hex}
+        </button>
+      </div>
+      <div className="p-4">
+        <p className="text-sm font-semibold tracking-tight text-ink">{color.name}</p>
+        <p className="mt-1 text-xs leading-relaxed text-ink-soft">{color.role}</p>
+        {color.note && <p className="mt-1 text-xs text-mist">{color.note}</p>}
+      </div>
+    </div>
+  )
+}
+
 export function DesignPage() {
   usePageMeta({
     title: 'Design principles · Open When Letters',
@@ -222,21 +281,7 @@ export function DesignPage() {
             </p>
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {colors.map((color) => (
-                <div
-                  key={color.name}
-                  className="overflow-hidden rounded-2xl border border-line bg-paper shadow-soft"
-                >
-                  <div className={cn('flex h-24 items-end p-3', color.className)}>
-                    <span className="rounded-md bg-cream/85 px-2 py-0.5 font-mono text-xs font-semibold text-forest-ink">
-                      {color.hex}
-                    </span>
-                  </div>
-                  <div className="p-4">
-                    <p className="text-sm font-semibold tracking-tight text-ink">{color.name}</p>
-                    <p className="mt-1 text-xs leading-relaxed text-ink-soft">{color.role}</p>
-                    {color.note && <p className="mt-1 text-xs text-mist">{color.note}</p>}
-                  </div>
-                </div>
+                <ColorSwatch key={color.name} color={color} />
               ))}
             </div>
           </Reveal>
