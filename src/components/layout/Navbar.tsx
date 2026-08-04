@@ -141,12 +141,17 @@ export function Navbar() {
           )}
         </div>
 
-        <button
+        <motion.button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
-          className="grid h-11 w-11 place-items-center rounded-full border border-line bg-cream text-ink md:hidden"
+          whileTap={{ scale: 0.92 }}
+          transition={springs.snappy}
+          className={cn(
+            'grid h-11 w-11 place-items-center rounded-full text-ink transition-colors duration-200 md:hidden',
+            open ? 'bg-blush' : 'hover:bg-blush/70',
+          )}
         >
           <span className="relative block h-3.5 w-4.5">
             <motion.span
@@ -162,7 +167,7 @@ export function Navbar() {
               className="absolute bottom-0 left-0 block h-0.5 w-full rounded-full bg-current"
             />
           </span>
-        </button>
+        </motion.button>
       </nav>
 
       {/* Mobile — floating pill menu */}
