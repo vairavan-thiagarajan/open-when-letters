@@ -1,0 +1,10 @@
+/* ── Say Briefly font stack ──────────────────────────────────── */
+
+/* Inter — everything functional */
+@import "@fontsource-variable/inter";
+
+/* Bricolage Grotesque — display headlines only (800 weight, chunky sticker-book feel) */
+@import "@fontsource-variable/bricolage-grotesque";
+
+/* Roboto Mono — micro-labels, tags, utility metadata */
+@import "@fontsource/roboto-mono/400.css";

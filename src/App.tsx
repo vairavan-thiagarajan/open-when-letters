@@ -1,0 +1,168 @@
+import { lazy, Suspense, useState } from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
+import { AnimatedRoutes } from '@/components/layout/AnimatedRoutes'
+import { ScrollToTop } from '@/components/layout/ScrollToTop'
+import { SplashScreen } from '@/components/splash/SplashScreen'
+import {
+  AccountPageSkeleton,
+  AuthPageSkeleton,
+  BuilderPageSkeleton,
+  CollectionPageSkeleton,
+  CollectionsPageSkeleton,
+  RouteFallback,
+} from '@/components/ui/PageSkeletons'
+import { SetupScreen } from '@/components/ui/SetupScreen'
+import { AuthProvider } from '@/context/AuthProvider'
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
+import { isSupabaseConfigured } from '@/services/supabase'
+
+const LandingPage = lazy(() =>
+  import('@/pages/LandingPage').then((module) => ({ default: module.LandingPage })),
+)
+const AboutPage = lazy(() =>
+  import('@/pages/AboutPage').then((module) => ({ default: module.AboutPage })),
+)
+const DesignPage = lazy(() =>
+  import('@/pages/DesignPage').then((module) => ({ default: module.DesignPage })),
+)
+const CreateCollectionPage = lazy(() =>
+  import('@/pages/CreateCollectionPage').then((module) => ({
+    default: module.CreateCollectionPage,
+  })),
+)
+const BuilderPage = lazy(() =>
+  import('@/pages/BuilderPage').then((module) => ({ default: module.BuilderPage })),
+)
+const CollectionPage = lazy(() =>
+  import('@/pages/CollectionPage').then((module) => ({ default: module.CollectionPage })),
+)
+const LoginPage = lazy(() =>
+  import('@/pages/LoginPage').then((module) => ({ default: module.LoginPage })),
+)
+const SignupPage = lazy(() =>
+  import('@/pages/SignupPage').then((module) => ({ default: module.SignupPage })),
+)
+const ForgotPasswordPage = lazy(() =>
+  import('@/pages/ForgotPasswordPage').then((module) => ({
+    default: module.ForgotPasswordPage,
+  })),
+)
+const ResetPasswordPage = lazy(() =>
+  import('@/pages/ResetPasswordPage').then((module) => ({
+    default: module.ResetPasswordPage,
+  })),
+)
+const DashboardPage = lazy(() =>
+  import('@/pages/DashboardPage').then((module) => ({ default: module.DashboardPage })),
+)
+const CollectionsPage = lazy(() =>
+  import('@/pages/CollectionsPage').then((module) => ({ default: module.CollectionsPage })),
+)
+const ProfilePage = lazy(() =>
+  import('@/pages/ProfilePage').then((module) => ({ default: module.ProfilePage })),
+)
+const SettingsPage = lazy(() =>
+  import('@/pages/SettingsPage').then((module) => ({ default: module.SettingsPage })),
+)
+
+const withFallback = (element: React.ReactNode, fallback: React.ReactNode = <RouteFallback />) => (
+  <Suspense fallback={fallback}>{element}</Suspense>
+)
+
+export default function App() {
+  const [showSplash, setShowSplash] = useState(isSupabaseConfigured)
+
+  return (
+    <>
+      <ScrollToTop />
+      <AnimatePresence>
+        {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
+      </AnimatePresence>
+      {isSupabaseConfigured ? (
+        <AuthProvider>
+          <AnimatedRoutes>
+            <Routes>
+              <Route path="/" element={withFallback(<LandingPage />)} />
+              <Route path="/about" element={withFallback(<AboutPage />)} />
+              <Route path="/design" element={withFallback(<DesignPage />)} />
+              <Route path="/create" element={withFallback(<CreateCollectionPage />)} />
+              <Route
+                path="/edit/:token"
+                element={
+                  withFallback(
+                    <ProtectedRoute>
+                      <BuilderPage />
+                    </ProtectedRoute>,
+                    <BuilderPageSkeleton />,
+                  )
+                }
+              />
+              <Route
+                path="/open/:slug"
+                element={withFallback(<CollectionPage />, <CollectionPageSkeleton />)}
+              />
+              <Route path="/login" element={withFallback(<LoginPage />, <AuthPageSkeleton />)} />
+              <Route path="/signup" element={withFallback(<SignupPage />, <AuthPageSkeleton />)} />
+              <Route
+                path="/forgot-password"
+                element={withFallback(<ForgotPasswordPage />, <AuthPageSkeleton />)}
+              />
+              <Route
+                path="/reset-password"
+                element={withFallback(<ResetPasswordPage />, <AuthPageSkeleton />)}
+              />
+              <Route
+                path="/dashboard"
+                element={
+                  withFallback(
+                    <ProtectedRoute>
+                      <DashboardPage />
+                    </ProtectedRoute>,
+                    <AccountPageSkeleton />,
+                  )
+                }
+              />
+              <Route
+                path="/collections"
+                element={
+                  withFallback(
+                    <ProtectedRoute>
+                      <CollectionsPage />
+                    </ProtectedRoute>,
+                    <CollectionsPageSkeleton />,
+                  )
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  withFallback(
+                    <ProtectedRoute>
+                      <ProfilePage />
+                    </ProtectedRoute>,
+                    <AccountPageSkeleton />,
+                  )
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  withFallback(
+                    <ProtectedRoute>
+                      <SettingsPage />
+                    </ProtectedRoute>,
+                    <AccountPageSkeleton />,
+                  )
+                }
+              />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </AnimatedRoutes>
+        </AuthProvider>
+      ) : (
+        <SetupScreen />
+      )}
+    </>
+  )
+}

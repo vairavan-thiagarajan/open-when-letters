@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Say Briefly palette ─────────────────────────────────────── */
+  --color-cream: #fcfaf5;
+  --color-paper: #fcfaf5;
+  --color-blush: #d5f5c2;
+  --color-blush-deep: #a8e5e5;
+  --color-rose: #1a3300;
+  --color-rose-deep: #1a3300;
+  --color-rose-soft: #ffe95c;
+  --color-ink: #1a3300;
+  --color-ink-soft: #4a7030;
+  --color-mist: #b6b6b6;
+  --color-line: #b6b6b6;
+
+  /* Named palette tokens for new code */
+  --color-forest-ink: #1a3300;
+  --color-highlighter-yellow: #ffe95c;
+  --color-cream-paper: #fcfaf5;
+  --color-pencil-gray: #b6b6b6;
+  --color-whisper-gray: #f1f1f1;
+  --color-sticky-note-teal: #a8e5e5;
+  --color-sticky-note-mint: #d5f5c2;
+  --color-sticky-note-blush: #f6d0ff;
+  --color-terracotta: #cb5521;
+
+  /* ── Typography ──────────────────────────────────────────────── */
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Archivo Black", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* ── Shadows (minimal — spec says color/borders do the work) ── */
+  --shadow-soft: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-lift: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+  /* ── Radius ──────────────────────────────────────────────────── */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 9999px;
+
+  /* ── Animations ──────────────────────────────────────────────── */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-heartbeat: heartbeat 1.6s ease-in-out infinite;
+  --animate-shimmer: shimmer 1.8s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes heartbeat {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    14% {
+      transform: scale(1.12);
+    }
+    28% {
+      transform: scale(1);
+    }
+    42% {
+      transform: scale(1.12);
+    }
+    70% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: var(--color-highlighter-yellow);
+  color: var(--color-ink);
+}
+
+/* Thin, warm scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-pencil-gray);
+  border-radius: 999px;
+  border: 2px solid var(--color-cream);
+}
+
+/* Paper texture for letter bodies */
+.paper-grain {
+  background-image: radial-gradient(
+      ellipse at 20% 10%,
+      rgb(26 51 0 / 0.03),
+      transparent 55%
+    ),
+    radial-gradient(ellipse at 80% 90%, rgb(26 51 0 / 0.03), transparent 55%);
+}
+
+/* Hide scrollbar utility for carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Accessible focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-forest-ink);
+  outline-offset: 2px;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Highlighter yellow wash utility */
+.highlighter-wash {
+  background-color: var(--color-highlighter-yellow);
+  padding: 0 0.15em;
+  border-radius: 3px;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
