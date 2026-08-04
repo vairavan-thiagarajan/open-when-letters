@@ -2,8 +2,13 @@ import { motion } from 'framer-motion'
 import type { CollectionLetter } from '@/services/types'
 import { formatDate } from '@/utils/formatDate'
 import { FloatingHearts } from '@/components/effects/FloatingHearts'
-import { MemoryCard } from '@/components/memory/MemoryCard'
+import { LetterCanvas } from '@/components/studio/LetterCanvas'
+import { InlineText } from '@/components/studio/RichText'
+import { AudioAttachment } from '@/components/studio/AudioAttachment'
+import { backgroundCss, letterFontById } from '@/data/letterStudio'
+import { parseBody } from '@/utils/markup'
 import { EASE } from '@/utils/anim'
+import { cn } from '@/utils/cn'
 
 interface LetterViewProps {
   letter: CollectionLetter
@@ -11,7 +16,9 @@ interface LetterViewProps {
 }
 
 export function LetterView({ letter, onClose }: LetterViewProps) {
-  const paragraphs = letter.body.split(/\n\n+/).filter(Boolean)
+  const blocks = parseBody(letter.body)
+  const font = letterFontById(letter.font)
+  const hasBackground = Boolean(backgroundCss(letter.background))
 
   return (
     <div className="relative">
@@ -47,50 +54,106 @@ export function LetterView({ letter, onClose }: LetterViewProps) {
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.08, ease: EASE }}
-          className="paper-grain relative mt-4 rounded-[2rem] border border-line bg-paper px-5 py-8 shadow-[rgba(0,0,0,0.08)_0px_2px_8px_0px] sm:px-14 sm:py-14"
+          className="relative mt-4 overflow-hidden rounded-[2rem] border border-line bg-paper shadow-[rgba(0,0,0,0.08)_0px_2px_8px_0px]"
         >
-          <div className="text-center">
-            <p className="inline-flex items-center gap-2 rounded-full bg-blush px-4 py-1.5 text-xs font-semibold tracking-widest font-mono text-forest-ink uppercase">
-              Open when
-            </p>
-            <h1 className="mt-4 font-display text-2xl leading-tight font-semibold text-ink sm:mt-5 sm:text-6xl">
-              {letter.title}
-            </h1>
-            {letter.trigger && (
-              <p className="mt-3 text-sm text-mist">{letter.trigger}</p>
-            )}
-            <p className="mt-2 text-xs text-mist">
-              Sealed on {formatDate(letter.createdAt)}
-            </p>
-          </div>
-
-          <div className="mx-auto my-6 flex items-center gap-4 sm:my-9" aria-hidden>
-            <span className="h-px flex-1 bg-line" />
-            <span className="text-forest-ink">♥</span>
-            <span className="h-px flex-1 bg-line" />
-          </div>
-
-          <div className="space-y-7">
-            {paragraphs.map((paragraph, index) => (
-              <motion.p
-                key={index}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.25 + index * 0.14,
-                  ease: EASE,
-                }}
-                className="font-display text-base leading-[1.75] whitespace-pre-line text-ink/90 sm:text-[1.3rem]"
-              >
-                {paragraph}
-              </motion.p>
-            ))}
-          </div>
-
-          {letter.memoryImageUrl && (
-            <MemoryCard src={letter.memoryImageUrl} alt={letter.title} />
+          {hasBackground && (
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{ background: backgroundCss(letter.background) }}
+            />
           )}
+          <div
+            aria-hidden
+            className={cn(
+              'absolute inset-0',
+              hasBackground ? 'paper-grain bg-paper/85 backdrop-blur-[2px]' : 'bg-paper',
+            )}
+          />
+
+          <div className="relative px-5 py-8 sm:px-14 sm:py-14">
+            <LetterCanvas stickers={letter.stickers} photos={letter.photos} readOnly />
+
+            <div style={font ? { fontFamily: font.family } : undefined}>
+              <div className="text-center">
+                <p className="inline-flex items-center gap-2 rounded-full bg-blush px-4 py-1.5 text-xs font-semibold tracking-widest font-mono text-forest-ink uppercase">
+                  Open when
+                </p>
+                <h1
+                  style={font ? { fontFamily: font.family } : undefined}
+                  className="mt-4 font-display text-2xl leading-tight font-semibold text-ink sm:mt-5 sm:text-4xl"
+                >
+                  {letter.title}
+                </h1>
+                {letter.trigger && (
+                  <p className="mt-3 text-sm text-mist">{letter.trigger}</p>
+                )}
+                <p className="mt-2 text-xs text-mist">
+                  Sealed on {formatDate(letter.createdAt)}
+                </p>
+              </div>
+
+              <div className="mx-auto my-6 flex items-center gap-4 sm:my-9" aria-hidden>
+                <span className="h-px flex-1 bg-line" />
+                <span className="text-forest-ink">♥</span>
+                <span className="h-px flex-1 bg-line" />
+              </div>
+
+              {letter.audioUrl && (
+                <div className="mb-6">
+                  <AudioAttachment value={letter.audioUrl} letterId={letter.id} />
+                </div>
+              )}
+
+              <div className="space-y-7">
+                {blocks.map((block, index) => {
+                  const delay = 0.25 + index * 0.14
+                  if (block.type === 'divider') {
+                    return (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay, ease: EASE }}
+                        className="mx-auto flex items-center gap-4"
+                        aria-hidden
+                      >
+                        <span className="h-px flex-1 bg-line" />
+                        <span className="text-forest-ink">♥</span>
+                        <span className="h-px flex-1 bg-line" />
+                      </motion.div>
+                    )
+                  }
+                  if (block.type === 'heading') {
+                    return (
+                      <motion.h2
+                        key={index}
+                        style={font ? { fontFamily: font.family } : undefined}
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay, ease: EASE }}
+                        className="font-display text-xl leading-snug font-semibold tracking-tight text-ink sm:text-2xl"
+                      >
+                        <InlineText segments={block.segments} />
+                      </motion.h2>
+                    )
+                  }
+                  return (
+                    <motion.p
+                      key={index}
+                      style={font ? { fontFamily: font.family } : undefined}
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay, ease: EASE }}
+                      className="font-display text-sm leading-[1.75] whitespace-pre-line text-ink/90 sm:text-base"
+                    >
+                      <InlineText segments={block.segments} />
+                    </motion.p>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
         </motion.article>
       </div>
     </div>

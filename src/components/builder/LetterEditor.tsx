@@ -1,7 +1,11 @@
+import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Field } from '@/components/create/Field'
 import { SchedulePicker } from '@/components/builder/SchedulePicker'
-import { MemoryUpload } from '@/components/memory/MemoryUpload'
+import { RichTextToolbar } from '@/components/studio/RichTextToolbar'
+import { LetterToolbar } from '@/components/studio/LetterToolbar'
+import { LetterPreview } from '@/components/studio/LetterPreview'
+import { letterFontById } from '@/data/letterStudio'
 import type { CollectionLetter } from '@/services/types'
 import type { LetterUpdate } from '@/services/letterService'
 import { EASE } from '@/utils/anim'
@@ -28,6 +32,9 @@ export function LetterEditor({
   onMove,
   onDone,
 }: LetterEditorProps) {
+  const bodyRef = useRef<HTMLTextAreaElement>(null)
+  const font = letterFontById(letter.font)
+
   return (
     <motion.div
       layout
@@ -134,32 +141,38 @@ export function LetterEditor({
         </Field>
 
         <Field label="The letter">
-          <textarea
-            value={letter.body}
-            onChange={(event) => onChange({ body: event.target.value })}
-            placeholder={'Dear love,\n\nIf you\'re reading this, the moment I wrote for has arrived…'}
-            rows={9}
-            className={`${inputClass} resize-none leading-relaxed`}
-          />
-        </Field>
-
-        <div>
-          <div className="flex flex-col gap-1">
-            <span className="text-sm font-medium tracking-tight text-ink">
-              The Memory
-              <span className="ml-1.5 text-xs font-normal text-mist">(Optional)</span>
-            </span>
-            <span className="text-xs text-mist">
-              Add one special photo that reminds you of this letter.
-            </span>
-          </div>
-          <div className="mt-2.5">
-            <MemoryUpload
-              value={letter.memoryImageUrl}
-              letterId={letter.id}
-              onChange={(url) => onChange({ memoryImageUrl: url })}
+          <div className="space-y-2">
+            <RichTextToolbar textareaRef={bodyRef} onChange={(body) => onChange({ body })} />
+            <textarea
+              ref={bodyRef}
+              value={letter.body}
+              onChange={(event) => onChange({ body: event.target.value })}
+              placeholder={'Dear love,\n\nIf you\'re reading this, the moment I wrote for has arrived…'}
+              rows={9}
+              style={font ? { fontFamily: font.family } : undefined}
+              className={`${inputClass} resize-none leading-relaxed`}
             />
           </div>
+        </Field>
+
+        <div className="border-t border-dashed border-line pt-5">
+          <div className="mb-3 flex items-baseline justify-between">
+            <span className="text-sm font-medium tracking-tight text-ink">
+              Letter studio
+            </span>
+            <span className="text-xs text-mist">Background, font, stickers, photos &amp; music</span>
+          </div>
+          <LetterToolbar letter={letter} onChange={onChange} />
+        </div>
+
+        <div>
+          <div className="mb-2.5 flex items-baseline justify-between">
+            <span className="text-sm font-medium tracking-tight text-ink">
+              Preview
+            </span>
+            <span className="text-xs text-mist">Drag the stickers &amp; photos to arrange them</span>
+          </div>
+          <LetterPreview letter={letter} onChange={onChange} />
         </div>
       </div>
     </motion.div>

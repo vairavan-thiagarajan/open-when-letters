@@ -74,7 +74,7 @@ export interface Database {
           },
         ]
       }
-      letters: {
+        letters: {
         Row: {
           id: string
           collection_id: string
@@ -88,6 +88,11 @@ export interface Database {
           unlock_type: string
           unlock_at: string | null
           memory_image_url: string
+          font: string
+          background: string
+          stickers: unknown
+          photos: unknown
+          audio_url: string
         }
         Insert: {
           id?: string
@@ -102,6 +107,11 @@ export interface Database {
           unlock_type?: string
           unlock_at?: string | null
           memory_image_url?: string
+          font?: string
+          background?: string
+          stickers?: unknown
+          photos?: unknown
+          audio_url?: string
         }
         Update: {
           id?: string
@@ -116,6 +126,11 @@ export interface Database {
           unlock_type?: string
           unlock_at?: string | null
           memory_image_url?: string
+          font?: string
+          background?: string
+          stickers?: unknown
+          photos?: unknown
+          audio_url?: string
         }
         Relationships: [
           {

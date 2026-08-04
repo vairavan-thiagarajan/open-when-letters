@@ -170,14 +170,6 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
             Letters
           </span>
         </motion.h1>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.65, duration: 0.5, ease: EASE }}
-          className="mt-4 font-mono text-[11px] font-semibold tracking-[0.22em] text-cream-paper/55 uppercase sm:text-xs"
-        >
-          Letters that wait for the right moment
-        </motion.p>
       </div>
     </motion.div>
   )

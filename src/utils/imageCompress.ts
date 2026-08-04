@@ -10,11 +10,11 @@
 const MAX_DIM = 1600
 const QUALITY = 0.82
 
-export function isMemoryImage(file: File): boolean {
+export function isImageFile(file: File): boolean {
   return ['image/jpeg', 'image/png', 'image/webp'].includes(file.type)
 }
 
-export async function compressMemoryImage(file: File): Promise<Blob> {
+export async function compressImage(file: File): Promise<Blob> {
   const url = URL.createObjectURL(file)
   try {
     const image = await loadImage(url)

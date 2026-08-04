@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { ACCENTS } from '@/data/themes'
 import type { Collection } from '@/services/types'
 import type { CollectionUpdate } from '@/services/collectionService'
+import { Button } from '@/components/ui/Button'
 import { Modal } from '@/components/ui/Modal'
 import { hashPassword } from '@/utils/password'
 import { cn } from '@/utils/cn'
@@ -14,7 +15,7 @@ interface SettingsModalProps {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-3 text-xs font-semibold tracking-widest text-mist uppercase font-mono">
+    <p className="mb-3 text-xs font-semibold tracking-widest text-forest-ink uppercase font-mono">
       {children}
     </p>
   )
@@ -124,24 +125,19 @@ export function SettingsModal({ collection, onChange, onClose }: SettingsModalPr
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   placeholder="New password (optional)"
-                  className="min-w-0 flex-1 rounded-md border border-line bg-paper px-4 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-mist focus:border-highlighter-yellow"
+                  className="min-w-0 flex-1 rounded-md border border-line bg-paper px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-mist focus:border-highlighter-yellow"
                 />
                 <div className="flex gap-2">
-                  <button
-                    type="button"
+                  <Button
+                    size="md"
                     onClick={applyPassword}
                     disabled={!password || savingPassword}
-                    className="rounded-md bg-ink px-4 py-2.5 text-sm font-semibold text-cream transition-opacity hover:opacity-90 disabled:opacity-40"
                   >
                     {savingPassword ? 'Saving…' : 'Change'}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={removePassword}
-                    className="rounded-md border border-line px-4 py-2.5 text-sm font-semibold text-ink-soft transition-colors hover:border-highlighter-yellow hover:text-ink"
-                  >
+                  </Button>
+                  <Button size="md" variant="ghost" onClick={removePassword}>
                     Remove
-                  </button>
+                  </Button>
                 </div>
               </div>
               <p className="mt-2 text-xs text-mist">
@@ -155,16 +151,15 @@ export function SettingsModal({ collection, onChange, onClose }: SettingsModalPr
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
                 placeholder="Set a password for the collection…"
-                className="min-w-0 flex-1 rounded-md border border-line bg-paper px-4 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-mist focus:border-highlighter-yellow"
+                className="min-w-0 flex-1 rounded-md border border-line bg-paper px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-mist focus:border-highlighter-yellow"
               />
-              <button
-                type="button"
+              <Button
+                size="md"
                 onClick={applyPassword}
                 disabled={!password || savingPassword}
-                className="rounded-md bg-ink px-5 py-2.5 text-sm font-semibold text-cream transition-opacity hover:opacity-90 disabled:opacity-40"
               >
                 {savingPassword ? 'Saving…' : 'Add password'}
-              </button>
+              </Button>
             </div>
           )}
         </section>
@@ -185,13 +180,9 @@ export function SettingsModal({ collection, onChange, onClose }: SettingsModalPr
           </p>
         </section>
 
-        <button
-          type="button"
-          onClick={onClose}
-          className="w-full rounded-md bg-ink py-3.5 text-sm font-semibold text-cream transition-opacity hover:opacity-90"
-        >
+        <Button size="lg" className="w-full" onClick={onClose}>
           Done
-        </button>
+        </Button>
       </div>
     </Modal>
   )

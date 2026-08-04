@@ -39,7 +39,7 @@ export function Features() {
                 <span className="grid h-12 w-12 place-items-center rounded-xl bg-blush transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
                   <span className="h-3 w-3 rounded-sm bg-forest-ink" />
                 </span>
-                <h3 className="mt-5 font-display text-xl font-semibold tracking-tight text-ink sm:text-2xl">
+                <h3 className="mt-5 font-display text-2xl font-semibold tracking-tight text-ink">
                   {feature.title}
                 </h3>
                 <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">

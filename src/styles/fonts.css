@@ -8,3 +8,29 @@
 
 /* Roboto Mono — micro-labels, tags, utility metadata */
 @import "@fontsource/roboto-mono/400.css";
+
+/* ── Letter Studio fonts (curated collection for letter bodies) ─── */
+
+/* Caveat — handwritten & intimate */
+@import "@fontsource-variable/caveat";
+
+/* Cormorant Garamond — elegant & literary */
+@import "@fontsource-variable/cormorant-garamond";
+
+/* Dancing Script — flowing cursive */
+@import "@fontsource-variable/dancing-script";
+
+/* Great Vibes — romantic script */
+@import "@fontsource/great-vibes";
+
+/* Kalam — casual handwriting */
+@import "@fontsource/kalam/400.css";
+
+/* Lora — warm literary serif */
+@import "@fontsource-variable/lora";
+
+/* Shadows Into Light — intimate, light handwriting */
+@import "@fontsource/shadows-into-light/400.css";
+
+/* Special Elite — typewriter */
+@import "@fontsource/special-elite/400.css";

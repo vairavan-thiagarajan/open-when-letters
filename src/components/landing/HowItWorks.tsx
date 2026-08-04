@@ -44,7 +44,7 @@ export function HowItWorks() {
                 <span className="grid h-12 w-12 place-items-center rounded-xl bg-blush">
                   <span className="h-3 w-3 rounded-sm bg-forest-ink" />
                 </span>
-                <h3 className="mt-6 font-display text-xl font-semibold tracking-tight text-ink sm:text-2xl">
+                <h3 className="mt-6 font-display text-2xl font-semibold tracking-tight text-ink">
                   {step.title}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-ink-soft">{step.text}</p>

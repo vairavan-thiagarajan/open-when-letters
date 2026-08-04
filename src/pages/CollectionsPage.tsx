@@ -237,22 +237,22 @@ export function CollectionsPage() {
                 </p>
               </div>
               <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-                <button
-                  type="button"
+                <Button
+                  variant="ghost"
+                  size="md"
                   onClick={() => setPendingDelete(null)}
                   disabled={deleting}
-                  className="min-h-11 rounded-md border border-line px-6 py-2.5 text-sm font-semibold text-ink-soft transition-colors hover:border-highlighter-yellow hover:text-ink disabled:opacity-40"
                 >
                   Cancel
-                </button>
-                <button
-                  type="button"
+                </Button>
+                <Button
+                  size="md"
                   onClick={handleDelete}
                   disabled={deleting}
-                  className="min-h-11 rounded-md bg-terracotta px-6 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-40"
+                  className="bg-terracotta text-white hover:opacity-90"
                 >
                   {deleting ? 'Deleting…' : 'Delete collection'}
-                </button>
+                </Button>
               </div>
             </div>
           </Modal>

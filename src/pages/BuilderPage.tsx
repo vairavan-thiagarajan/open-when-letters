@@ -474,7 +474,7 @@ export function BuilderPage() {
 
               <div className="mt-7 space-y-5">
                 <div>
-                  <p className="mb-2 text-xs font-semibold tracking-widest font-mono text-mist uppercase">
+                  <p className="mb-2 text-xs font-semibold tracking-widest font-mono text-forest-ink uppercase">
                     Public link
                   </p>
                   <div className="flex items-center gap-2 rounded-2xl border border-line bg-cream px-4 py-3">
@@ -486,7 +486,7 @@ export function BuilderPage() {
                 </div>
 
                 <div>
-                  <p className="mb-2 text-xs font-semibold tracking-widest font-mono text-mist uppercase">
+                  <p className="mb-2 text-xs font-semibold tracking-widest font-mono text-forest-ink uppercase">
                     Scan to open
                   </p>
                   <div className="flex items-center gap-4 rounded-2xl border border-line bg-paper p-4">
@@ -502,7 +502,7 @@ export function BuilderPage() {
                 </div>
 
                 <div>
-                  <p className="mb-2 text-xs font-semibold tracking-widest font-mono text-mist uppercase">
+                  <p className="mb-2 text-xs font-semibold tracking-widest font-mono text-forest-ink uppercase">
                     Your secret edit link
                   </p>
                   <div className="flex items-center gap-2 rounded-2xl border border-dashed border-highlighter-yellow/60 bg-blush/30 px-4 py-3">
