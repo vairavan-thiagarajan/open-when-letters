@@ -10,47 +10,47 @@ const faqs = [
   {
     question: 'What is Open When Letters?',
     answer:
-      'Open When Letters lets you write a small collection of letters, each for a specific kind of moment — a bad day, missing someone, a small win. You share one beautiful link, and the person you love opens each letter when the time is right.',
+      'Open When Letters is a little service for a big feeling. You write a small collection of letters — one for a bad day, one for missing someone, one for a small win — and share a single beautiful link. The person you love opens each letter exactly when they need it most. It is our way of helping words arrive at the right moment.',
   },
   {
     question: 'Do I need an account to read a collection?',
     answer:
-      'No. Reading is the whole point and requires no account, no app and no download. Anyone with the link can open the collection and read the letters waiting for them.',
+      'Not at all. Reading is the whole point, and it is completely open — no account, no app and no download. If someone shares a collection with you, just open the link, and the letters that are ready will be waiting for you.',
   },
   {
     question: 'Is Open When Letters free?',
     answer:
-      'Yes. Writing, sharing and reading collections is completely free. There are no hidden charges for the core experience.',
+      'Yes — writing, sharing and reading collections is completely free. There are no hidden charges, and we have no plans to add any for the core experience. We believe heartfelt words should never come with a price tag.',
   },
   {
     question: 'How do scheduled letters work?',
     answer:
-      'Every letter gets a moment: it can be ready any time, set to open on a specific date, or repeat every year on a birthday or anniversary. Until that moment arrives the letter stays sealed.',
+      'Every letter has a moment of its own. It can be ready to open any time, unlock on a particular date, or return every year on a birthday or anniversary. Until that moment arrives, the letter stays sealed and safe — we promise.',
   },
   {
     question: 'Can someone read their letters before they unlock?',
     answer:
-      'No. Sealed letters stay hidden until their moment arrives — the collection only ever reveals what is ready. The surprise is part of the gift.',
+      'No. Sealed letters stay hidden until their moment arrives — the collection only ever reveals what is ready to be read. We think the surprise is part of the gift, and we protect it carefully.',
   },
   {
     question: 'Can I edit or delete letters after I share the link?',
     answer:
-      'Yes. From the builder you can go back and edit a letter, change when it opens, delete it, or add more letters to the collection at any time.',
+      'Of course. You can return to the builder whenever you like to edit a letter, change when it opens, delete it, or add more letters. Nothing is set in stone — we want you to feel at ease the whole way through.',
   },
   {
     question: 'Can I add photos, stickers, music or handwriting?',
     answer:
-      'Yes. The letter studio lets you pick paper backgrounds and fonts, add stickers and photos, and attach a short audio message — so each letter feels like it was made by hand.',
+      'Yes! The letter studio lets you pick paper backgrounds and fonts, add stickers and photos, and even attach a short voice message. We want every letter to feel like it was made by hand, with love.',
   },
   {
     question: 'Is my data private?',
     answer:
-      'Your collections are private and only reachable through the link you choose to share. We store the words you write so they can be delivered to the right person, and we never sell your data.',
+      'Your collections are private, and the only way anyone can reach them is through a link you choose to share. We keep the words you write so they can reach the right person, we never sell your data, and we store only what the service needs to do its job.',
   },
   {
     question: 'Can I use Open When Letters on my phone?',
     answer:
-      'Yes. Everything runs in the browser, so letters work beautifully on phones, tablets and desktops — exactly the way a real letter should.',
+      'Yes — everything runs in the browser, so letters look and feel just right on phones, tablets and desktops. Wherever you happen to be, a letter can find you.',
   },
 ]
 
@@ -147,8 +147,9 @@ export function FaqPage() {
             transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
             className="mt-12 text-center text-sm leading-relaxed text-mist"
           >
-            Still curious? We would love to hear from you — say hello through the
-            Feedback form in the navigation.
+            Still curious? We would love to hear from you. Reach out through the
+            Feedback form in the navigation — a real person reads every word and
+            replies to everything we receive.
           </motion.p>
         </div>
       </main>
