@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { cn } from '@/utils/cn'
 import { EASE } from '@/utils/anim'
+import { EnvelopeThumb } from '@/components/letters/EnvelopeThumb'
 
 const notes = [
   {
@@ -97,56 +98,7 @@ export function LetterScene() {
             className="absolute -top-3 right-[10%] z-20 h-5 w-14 rotate-6 rounded-[3px] bg-highlighter-yellow/70"
           />
 
-          <svg viewBox="0 0 260 180" fill="none" className="h-auto w-full" aria-hidden>
-            <defs>
-              <linearGradient id="ls-body" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="#f2f1ea" />
-                <stop offset="1" stopColor="#e3e1d5" />
-              </linearGradient>
-              <linearGradient id="ls-flap" x1="0" y1="1" x2="0" y2="0">
-                <stop offset="0" stopColor="#f6f4ec" />
-                <stop offset="1" stopColor="#e9e6d9" />
-              </linearGradient>
-            </defs>
-
-            {/* soft ground shadow */}
-            <ellipse cx="130" cy="172" rx="96" ry="9" fill="#1a3300" opacity="0.06" />
-
-            {/* envelope back */}
-            <rect x="26" y="30" width="208" height="132" rx="18" fill="url(#ls-body)" />
-
-            {/* front panel */}
-            <rect
-              x="26"
-              y="58"
-              width="208"
-              height="104"
-              rx="18"
-              fill="#fcfaf5"
-              stroke="#cfcfcf"
-              strokeWidth="1.5"
-            />
-
-            {/* fold lines */}
-            <path
-              d="M44 142 L130 94 L216 142"
-              stroke="#cfcfcf"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-
-            {/* flap */}
-            <path d="M26 56 L130 18 L234 56 Z" fill="url(#ls-flap)" />
-
-            {/* wax seal */}
-            <g>
-              <circle cx="130" cy="62" r="16" fill="#ffe95c" />
-              <path
-                d="M130 62 C 127.6 57.6 123.2 55.4 123.2 52 C 123.2 49.4 125.4 47.8 127.6 47.8 C 128.9 47.8 130 48.6 130 49.7 C 130 48.6 131.1 47.8 132.4 47.8 C 134.6 47.8 136.8 49.4 136.8 52 C 136.8 55.4 132.4 57.6 130 62 Z"
-                fill="#1a3300"
-              />
-            </g>
-          </svg>
+          <EnvelopeThumb cover={0} locked className="w-full" />
 
           {/* hanging tag */}
           <motion.div
