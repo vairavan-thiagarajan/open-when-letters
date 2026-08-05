@@ -10,17 +10,17 @@ import { EASE, springs } from '@/utils/anim'
 
 const publicLinks = [
   { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
   { to: '/design', label: 'Design' },
+  { to: '/about', label: 'About' },
   { to: '/login', label: 'Log in' },
 ]
 
 const accountLinks = [
   { to: '/', label: 'Home' },
   { to: '/collections', label: 'Collections' },
-  { to: '/profile', label: 'Profile' },
   { to: '/design', label: 'Design' },
   { to: '/about', label: 'About' },
+  { to: '/profile', label: 'Profile' },
 ]
 
 function ArrowIcon() {
