@@ -26,7 +26,7 @@ export function ForgotPasswordPage() {
   const [submitting, setSubmitting] = useState(false)
   const [sent, setSent] = useState(false)
 
-  if (!loading && user) return <Navigate to="/dashboard" replace />
+  if (!loading && user) return <Navigate to="/collections" replace />
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()

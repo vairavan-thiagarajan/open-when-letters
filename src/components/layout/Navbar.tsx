@@ -16,7 +16,7 @@ const publicLinks = [
 ]
 
 const accountLinks = [
-  { to: '/dashboard', label: 'Dashboard' },
+  { to: '/', label: 'Home' },
   { to: '/collections', label: 'Collections' },
   { to: '/profile', label: 'Profile' },
   { to: '/design', label: 'Design' },

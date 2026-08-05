@@ -79,17 +79,40 @@ export function CollectionsPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: EASE }}
+            className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
           >
-            <p className="font-mono text-xs font-semibold tracking-widest text-forest-ink uppercase">
-              Collections
-            </p>
-            <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
-              Your letter collections
-            </h1>
-            <p className="mt-3 text-ink-soft">
-              Every collection you create will live here, safe behind your
-              account.
-            </p>
+            <div>
+              <p className="font-mono text-xs font-semibold tracking-widest text-forest-ink uppercase">
+                Collections
+              </p>
+              <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
+                Your letter collections
+              </h1>
+              <p className="mt-3 text-ink-soft">
+                Every collection you create will live here, safe behind your
+                account.
+              </p>
+            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.1, ease: EASE }}
+              className="shrink-0"
+            >
+              <Link to="/create">
+                <Button size="lg" className="w-full sm:w-auto">
+                  <svg viewBox="0 0 24 24" fill="none" className="h-4.5 w-4.5" aria-hidden>
+                    <path
+                      d="M12 5v14M5 12h14"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  Add Collection
+                </Button>
+              </Link>
+            </motion.div>
           </motion.div>
 
           {collections === null && !error ? (
@@ -206,7 +229,7 @@ export function CollectionsPage() {
                   </Button>
                 ) : (
                   <Link to="/create">
-                    <Button size="lg">Create a collection</Button>
+                    <Button size="lg">Add Collection</Button>
                   </Link>
                 )}
               </EmptyState>

@@ -30,7 +30,7 @@ export function ResetPasswordPage() {
   if (loading) return <RouteFallback />
 
   // A signed-in user who isn't here through a recovery link has no business here.
-  if (user && !recovery) return <Navigate to="/dashboard" replace />
+  if (user && !recovery) return <Navigate to="/collections" replace />
 
   if (!user && !recovery) {
     return (
@@ -71,7 +71,7 @@ export function ResetPasswordPage() {
     try {
       await updatePassword(password)
       toast('Password updated — welcome back.')
-      navigate('/dashboard', { replace: true })
+      navigate('/collections', { replace: true })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not update your password.')
       setSubmitting(false)
@@ -87,10 +87,10 @@ export function ResetPasswordPage() {
           <p className="text-sm text-ink-soft">
             Prefer to skip?{' '}
             <Link
-              to="/dashboard"
+              to="/collections"
               className="font-semibold text-forest-ink underline decoration-highlighter-yellow underline-offset-2 transition-colors hover:text-ink"
             >
-              Go to your dashboard
+              Go to your collections
             </Link>
           </p>
         }

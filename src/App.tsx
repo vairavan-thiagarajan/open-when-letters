@@ -59,9 +59,6 @@ const ResetPasswordPage = lazy(() =>
     default: module.ResetPasswordPage,
   })),
 )
-const DashboardPage = lazy(() =>
-  import('@/pages/DashboardPage').then((module) => ({ default: module.DashboardPage })),
-)
 const CollectionsPage = lazy(() =>
   import('@/pages/CollectionsPage').then((module) => ({ default: module.CollectionsPage })),
 )
@@ -119,17 +116,6 @@ export default function App() {
               <Route
                 path="/reset-password"
                 element={withFallback(<ResetPasswordPage />, <AuthPageSkeleton />)}
-              />
-              <Route
-                path="/dashboard"
-                element={
-                  withFallback(
-                    <ProtectedRoute>
-                      <DashboardPage />
-                    </ProtectedRoute>,
-                    <AccountPageSkeleton />,
-                  )
-                }
               />
               <Route
                 path="/collections"

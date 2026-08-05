@@ -37,7 +37,7 @@ export function LoginPage() {
   })
 
   if (!loading && user) {
-    const from = (location.state as LoginLocationState | null)?.from?.pathname ?? '/dashboard'
+    const from = (location.state as LoginLocationState | null)?.from?.pathname ?? '/collections'
     return <Navigate to={from} replace />
   }
 
@@ -51,7 +51,7 @@ export function LoginPage() {
     setError(null)
     try {
       await signIn(email.trim(), password)
-      const from = (location.state as LoginLocationState | null)?.from?.pathname ?? '/dashboard'
+      const from = (location.state as LoginLocationState | null)?.from?.pathname ?? '/collections'
       navigate(from, { replace: true })
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Could not sign in.'

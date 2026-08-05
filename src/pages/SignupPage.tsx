@@ -33,7 +33,7 @@ export function SignupPage() {
   const [pendingEmail, setPendingEmail] = useState<string | null>(null)
   const [resending, setResending] = useState(false)
 
-  if (!loading && user) return <Navigate to="/dashboard" replace />
+  if (!loading && user) return <Navigate to="/collections" replace />
 
   if (pendingEmail) {
     return (
@@ -118,7 +118,7 @@ export function SignupPage() {
         setPendingEmail(email.trim())
       } else {
         toast('Account created — welcome!')
-        navigate('/dashboard', { replace: true })
+        navigate('/collections', { replace: true })
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not create your account.')
