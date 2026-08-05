@@ -3,6 +3,7 @@ import { Footer } from '@/components/layout/Footer'
 import { Hero } from '@/components/landing/Hero'
 import { Features } from '@/components/landing/Features'
 import { HowItWorks } from '@/components/landing/HowItWorks'
+import { ExperienceSection } from '@/components/landing/ExperienceSection'
 import { CTA } from '@/components/landing/CTA'
 import { usePageMeta, absoluteUrl } from '@/utils/meta'
 
@@ -36,6 +37,7 @@ export function LandingPage() {
         <Hero />
         <Features />
         <HowItWorks />
+        <ExperienceSection />
         <CTA />
       </main>
       <Footer />
