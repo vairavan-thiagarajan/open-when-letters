@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { cn } from '@/utils/cn'
 import { removeDecorAsset, uploadDecorAudio } from '@/services/letterDecorStorage'
 
@@ -11,7 +11,7 @@ interface AudioAttachmentProps {
   onChange?: (url: string) => void
 }
 
-type Status = 'idle' | 'uploading' | 'error' | 'mic-denied' | 'unsupported'
+type Status = 'idle' | 'uploading' | 'error'
 
 const ACCEPTED_AUDIO = [
   'audio/mpeg',
@@ -25,25 +25,6 @@ const ACCEPTED_AUDIO = [
 ]
 
 const MAX_AUDIO_BYTES = 10 * 1024 * 1024
-
-/**
- * Recording codecs in order of preference. Safari/iOS only supports MP4/AAC,
- * so it must be requested explicitly — otherwise the platform default differs
- * and the file can't be used everywhere.
- */
-const AUDIO_MIME_CANDIDATES = [
-  'audio/mp4;codecs=mp4a.40.2',
-  'audio/mp4',
-  'audio/aac',
-  'audio/webm;codecs=opus',
-  'audio/webm',
-  'audio/ogg;codecs=opus',
-]
-
-function pickAudioMimeType(): string {
-  if (typeof MediaRecorder === 'undefined' || !MediaRecorder.isTypeSupported) return ''
-  return AUDIO_MIME_CANDIDATES.find((candidate) => MediaRecorder.isTypeSupported(candidate)) ?? ''
-}
 
 function formatTime(seconds: number): string {
   if (!Number.isFinite(seconds)) return '0:00'
@@ -128,22 +109,13 @@ export function AudioPlayer({ src }: { src: string }) {
 }
 
 /**
- * Optional per-letter audio. Upload or record in the editor; a read-only
- * player in the reader. Audio is never autoplayed and is stored in the
- * `letter-decor` bucket (no data-URL fallback — see service).
+ * Optional per-letter music. Upload in the editor; a read-only player in the
+ * reader. Audio is never autoplayed and is stored in the `letter-decor` bucket
+ * (no data-URL fallback — see service).
  */
 export function AudioAttachment({ value, letterId, onChange }: AudioAttachmentProps) {
   const inputRef = useRef<HTMLInputElement>(null)
-  const mediaRef = useRef<MediaRecorder | null>(null)
-  const chunksRef = useRef<Blob[]>([])
   const [status, setStatus] = useState<Status>('idle')
-  const [recording, setRecording] = useState(false)
-
-  useEffect(() => {
-    return () => {
-      mediaRef.current?.stream.getTracks().forEach((track) => track.stop())
-    }
-  }, [])
 
   const upload = useCallback(
     async (blob: Blob) => {
@@ -179,59 +151,6 @@ export function AudioAttachment({ value, letterId, onChange }: AudioAttachmentPr
     },
     [upload],
   )
-
-  const startRecording = useCallback(async () => {
-    if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') {
-      setStatus('unsupported')
-      return
-    }
-    setStatus('idle')
-
-    let stream: MediaStream
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-    } catch (error) {
-      const name = error instanceof DOMException ? error.name : ''
-      setStatus(name === 'NotAllowedError' || name === 'PermissionDeniedError' ? 'mic-denied' : 'error')
-      return
-    }
-
-    try {
-      const mimeType = pickAudioMimeType()
-      const recorder = new MediaRecorder(stream, mimeType ? { mimeType } : {})
-      chunksRef.current = []
-      recorder.ondataavailable = (event) => {
-        if (event.data.size > 0) chunksRef.current.push(event.data)
-      }
-      recorder.onstop = () => {
-        const type = (mimeType || recorder.mimeType || 'audio/mp4').split(';')[0].trim()
-        const blob = new Blob(chunksRef.current, { type })
-        stream.getTracks().forEach((track) => track.stop())
-        mediaRef.current = null
-        setRecording(false)
-        if (blob.size > 0) void upload(blob)
-      }
-      mediaRef.current = recorder
-      recorder.start()
-      setRecording(true)
-    } catch {
-      stream.getTracks().forEach((track) => track.stop())
-      setStatus('error')
-    }
-  }, [upload])
-
-  const stopRecording = useCallback(() => {
-    mediaRef.current?.stop()
-  }, [])
-
-  const cancelRecording = useCallback(() => {
-    const recorder = mediaRef.current
-    if (!recorder) return
-    recorder.stream.getTracks().forEach((track) => track.stop())
-    recorder.onstop = null
-    mediaRef.current = null
-    setRecording(false)
-  }, [])
 
   const remove = useCallback(() => {
     if (value) removeDecorAsset(value).catch(() => {})
@@ -284,35 +203,8 @@ export function AudioAttachment({ value, letterId, onChange }: AudioAttachmentPr
             disabled={status === 'uploading'}
             className="min-h-11 rounded-full border border-line px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-highlighter-yellow disabled:opacity-40"
           >
-            Upload audio
+            Upload music
           </button>
-          {recording ? (
-            <>
-              <button
-                type="button"
-                onClick={stopRecording}
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-terracotta px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
-              >
-                <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
-                Stop &amp; add
-              </button>
-              <button
-                type="button"
-                onClick={cancelRecording}
-                className="min-h-11 rounded-full border border-line px-4 py-2 text-sm font-medium text-ink-soft transition-colors hover:border-highlighter-yellow"
-              >
-                Cancel
-              </button>
-            </>
-          ) : (
-            <button
-              type="button"
-              onClick={startRecording}
-              className="min-h-11 rounded-full border border-line px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-highlighter-yellow"
-            >
-              Record
-            </button>
-          )}
         </div>
       ) : null}
 
@@ -327,19 +219,9 @@ export function AudioAttachment({ value, letterId, onChange }: AudioAttachmentPr
           That audio couldn't be used. Try an MP3, WAV or AAC file under 10&nbsp;MB.
         </p>
       )}
-      {status === 'mic-denied' && (
-        <p className="mt-2 text-xs font-medium text-terracotta">
-          Microphone access was blocked. Allow the mic in your browser settings, then try again.
-        </p>
-      )}
-      {status === 'unsupported' && (
-        <p className="mt-2 text-xs font-medium text-terracotta">
-          Live recording isn't supported in this browser — upload an audio file instead.
-        </p>
-      )}
       {editor && !value && status === 'idle' && (
         <p className="mt-2 text-xs leading-relaxed text-mist">
-          One song or voice note per letter · never plays automatically.
+          One song per letter · never plays automatically.
         </p>
       )}
     </div>
