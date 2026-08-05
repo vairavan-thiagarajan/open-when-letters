@@ -39,7 +39,7 @@ export function ExperienceSection() {
 
         <Reveal delay={0.1} className="mt-14">
           <div
-            className="relative mx-auto max-w-2xl overflow-hidden rounded-[2.5rem] px-6 pt-12 pb-12 text-center sm:px-10"
+            className="relative overflow-hidden rounded-[2.5rem] px-6 pt-12 pb-12 text-center sm:px-10"
             style={{
               background:
                 'radial-gradient(120% 90% at 50% 0%, #24401a 0%, #1a3300 58%, #14250e 100%)',
