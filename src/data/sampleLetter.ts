@@ -15,7 +15,7 @@ export const SAMPLE_LETTER: CollectionLetter = {
   trigger: 'For the days when everything feels a little heavier.',
   body: `Dear you,
 
-I don't know exactly what today took from you — but I know it took something. I can hear it in the way you keep saying you're *fine*.
+I don't know exactly what today took from you, but I know it took something. I can hear it in the way you keep saying you're *fine*.
 
 # A quiet reminder
 

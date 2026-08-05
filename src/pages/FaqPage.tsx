@@ -10,37 +10,37 @@ const faqs = [
   {
     question: 'What is the story behind Open When Letters?',
     answer:
-      'It started with two people who had so much to say to each other. When life got busy, the quiet moments to talk were few — so they made a place to leave words for each other: letters that wait until the moment they are needed. Open When Letters still works that way today, as a small way of being there for someone, even when you cannot be side by side.',
+      'It started with two people who had so much to say to each other. When life got busy, the quiet moments to talk were few, so they made a place to leave words for each other: letters that wait until the moment they are needed. Open When Letters still works that way today, as a small way of being there for someone, even when you cannot be side by side.',
   },
   {
     question: 'What is Open When Letters?',
     answer:
-      'Open When Letters is a little service for a big feeling. You write a small collection of letters — one for a bad day, one for missing someone, one for a small win — and share a single beautiful link. The person you love opens each letter exactly when they need it most. It is our way of helping words arrive at the right moment.',
+      'Open When Letters is a little service for a big feeling. You write a small collection of letters, one for a bad day, one for missing someone, one for a small win, and share a single beautiful link. The person you love opens each letter exactly when they need it most. It is our way of helping words arrive at the right moment.',
   },
   {
     question: 'Do I need an account to read a collection?',
     answer:
-      'Not at all. Reading is the whole point, and it is completely open — no account, no app and no download. If someone shares a collection with you, just open the link, and the letters that are ready will be waiting for you.',
+      'Not at all. Reading is the whole point, and it is completely open: no account, no app and no download. If someone shares a collection with you, just open the link, and the letters that are ready will be waiting for you.',
   },
   {
     question: 'Is Open When Letters free?',
     answer:
-      'Yes — writing, sharing and reading collections is completely free. There are no hidden charges, and we have no plans to add any for the core experience. We believe heartfelt words should never come with a price tag.',
+      'Yes, writing, sharing and reading collections is completely free. There are no hidden charges, and we have no plans to add any for the core experience. We believe heartfelt words should never come with a price tag.',
   },
   {
     question: 'How do scheduled letters work?',
     answer:
-      'Every letter has a moment of its own. It can be ready to open any time, unlock on a particular date, or return every year on a birthday or anniversary. Until that moment arrives, the letter stays sealed and safe — we promise.',
+      'Every letter has a moment of its own. It can be ready to open any time, unlock on a particular date, or return every year on a birthday or anniversary. Until that moment arrives, the letter stays sealed and safe, we promise.',
   },
   {
     question: 'Can someone read their letters before they unlock?',
     answer:
-      'No. Sealed letters stay hidden until their moment arrives — the collection only ever reveals what is ready to be read. We think the surprise is part of the gift, and we protect it carefully.',
+      'No. Sealed letters stay hidden until their moment arrives. The collection only ever reveals what is ready to be read. We think the surprise is part of the gift, and we protect it carefully.',
   },
   {
     question: 'Can I edit or delete letters after I share the link?',
     answer:
-      'Of course. You can return to the builder whenever you like to edit a letter, change when it opens, delete it, or add more letters. Nothing is set in stone — we want you to feel at ease the whole way through.',
+      'Of course. You can return to the builder whenever you like to edit a letter, change when it opens, delete it, or add more letters. Nothing is set in stone. We want you to feel at ease the whole way through.',
   },
   {
     question: 'Can I add photos, stickers, music or handwriting?',
@@ -55,7 +55,7 @@ const faqs = [
   {
     question: 'Can I use Open When Letters on my phone?',
     answer:
-      'Yes — everything runs in the browser, so letters look and feel just right on phones, tablets and desktops. Wherever you happen to be, a letter can find you.',
+      'Yes, everything runs in the browser, so letters look and feel just right on phones, tablets and desktops. Wherever you happen to be, a letter can find you.',
   },
 ]
 
@@ -110,7 +110,7 @@ export function FaqPage() {
   usePageMeta({
     title: 'FAQ · Open When Letters',
     description:
-      'Answers to common questions about writing, sharing and opening letters — from scheduling and unlocking to privacy and pricing.',
+      'Answers to common questions about writing, sharing and opening letters, from scheduling and unlocking to privacy and pricing.',
     path: '/faq',
   })
 
@@ -131,7 +131,7 @@ export function FaqPage() {
             </h1>
             <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-ink-soft sm:text-lg">
               Everything you might wonder about writing, sharing and opening
-              letters — in plain words.
+              letters in plain words.
             </p>
           </motion.div>
 
@@ -153,7 +153,7 @@ export function FaqPage() {
             className="mt-12 text-center text-sm leading-relaxed text-mist"
           >
             Still curious? We would love to hear from you. Reach out through the
-            Feedback form in the navigation — a real person reads every word and
+            Feedback form in the navigation. A real person reads every word and
             replies to everything we receive.
           </motion.p>
         </div>

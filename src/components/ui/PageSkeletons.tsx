@@ -84,27 +84,33 @@ export function AccountPageSkeleton({ cards = 2 }: { cards?: number }) {
   )
 }
 
-/** Collection card grid — used while the collections list loads. */
+/** Collection card grid — used while the collections list loads. Mirrors
+    the manila-folder CollectionFileCard: tab, eyebrow, title, description,
+    then a row of pill actions. */
 export function CollectionsGridSkeleton() {
   return (
     <div className="mt-10 grid gap-6 sm:grid-cols-2" aria-hidden>
       {Array.from({ length: 4 }).map((_, index) => (
         <div
           key={index}
-          className="rounded-2xl border border-line bg-paper p-6 shadow-card"
+          className="relative flex flex-col rounded-[1.25rem] border border-[#d9bf8a]/60 pt-8 shadow-[0_18px_40px_-22px_rgba(74,52,20,0.45)]"
+          style={{
+            background:
+              'linear-gradient(160deg, #f4e5b8 0%, #ecd9a5 55%, #e0c88e 100%)',
+          }}
         >
-          <div className="flex items-start justify-between">
-          <Skeleton className="h-12 w-12 rounded-xl" />
-            <Skeleton className="h-6 w-20 rounded-full" />
+          <div className="absolute -top-[9px] right-[10%]">
+            <Skeleton className="h-[18px] w-24 rounded-t-md rounded-b-none" />
           </div>
-          <Skeleton className="mt-5 h-7 w-3/4 rounded-xl" />
-          <Bars className="mt-3" lines={2} />
-          <Skeleton className="mt-5 h-px w-full" />
-          <div className="mt-4 flex items-center justify-between">
-            <Skeleton className="h-3.5 w-24 rounded-full" />
-            <div className="flex gap-2">
+          <div className="flex flex-1 flex-col px-6 pb-6 text-center">
+            <Skeleton className="mx-auto h-3 w-24 rounded-full" />
+            <Skeleton className="mx-auto mt-4 h-7 w-3/4 rounded-xl" />
+            <Skeleton className="mx-auto mt-3 h-3.5 w-2/3 rounded-full" />
+            <Skeleton className="mx-auto mt-2 h-3.5 w-1/2 rounded-full" />
+            <div className="mt-auto flex justify-center gap-2 pt-6">
               <Skeleton className="h-9 w-16 rounded-full" />
               <Skeleton className="h-9 w-16 rounded-full" />
+              <Skeleton className="h-9 w-9 rounded-full" />
             </div>
           </div>
         </div>
@@ -126,18 +132,9 @@ export function CollectionsPageSkeleton() {
 /** A single letter card inside a collection grid. */
 export function LetterCardSkeleton() {
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-xl border border-line bg-paper p-6 shadow-card">
-      <div className="flex justify-end" aria-hidden>
-        <Skeleton className="h-7 w-20 rounded-full" />
-      </div>
-      <Skeleton className="mx-auto mt-4 h-28 w-40 rounded-xl" />
-      <Skeleton className="mt-6 h-3.5 w-20 rounded-full" />
-      <Skeleton className="mt-2.5 h-8 w-3/4 rounded-xl" />
-      <Bars className="mt-3" lines={2} />
-      <div className="mt-auto flex items-center justify-between border-t border-line pt-4">
-        <Skeleton className="h-3.5 w-20 rounded-full" />
-        <Skeleton className="h-9 w-20 rounded-full" />
-      </div>
+    <div className="flex h-full flex-col p-2" aria-hidden>
+      <Skeleton className="aspect-[10/7] w-full rounded-xl" />
+      <Skeleton className="mx-auto mt-3 h-3.5 w-28 rounded-full" />
     </div>
   )
 }

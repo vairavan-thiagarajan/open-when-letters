@@ -7,7 +7,7 @@ import { EASE } from '@/utils/anim'
 const sections = [
   {
     title: '1. The service',
-    body: 'Open When Letters helps you write and share collections of letters that open at the right moment. When we say "we", we mean the people who run the service. By using it, you agree to these terms. If you do not agree, we kindly ask that you simply do not use the service — no hard feelings.',
+    body: 'Open When Letters helps you write and share collections of letters that open at the right moment. When we say "we", we mean the people who run the service. By using it, you agree to these terms. If you do not agree, we kindly ask that you simply do not use the service, no hard feelings.',
   },
   {
     title: '2. Your account',
@@ -15,11 +15,11 @@ const sections = [
   },
   {
     title: '3. Your content',
-    body: 'The letters, photos, audio and anything else you create remain yours — always. We only ask for the limited permission needed to store, process and deliver them so the service can do its job, and nothing more. Please share only what is yours to share and what respects other people\u2019s rights.',
+    body: 'The letters, photos, audio and anything else you create remain yours, always. We only ask for the limited permission needed to store, process and deliver them so the service can do its job, and nothing more. Please share only what is yours to share and what respects other people\u2019s rights.',
   },
   {
     title: '4. What you may not do',
-    body: 'We ask that you use the service kindly and fairly. Please do not try to access it without permission, bypass its security, scrape or resell its content, or send spam or harmful material. Letters are meant to spread warmth — content that harasses, threatens or hurts others is not welcome.',
+    body: 'We ask that you use the service kindly and fairly. Please do not try to access it without permission, bypass its security, scrape or resell its content, or send spam or harmful material. Letters are meant to spread warmth. Content that harasses, threatens or hurts others is not welcome.',
   },
   {
     title: '5. Sharing and privacy',
@@ -27,7 +27,7 @@ const sections = [
   },
   {
     title: '6. Intellectual property',
-    body: 'The service itself — its design, interface, logos and features — belongs to us. Please enjoy it the way it is meant to be enjoyed, and do not copy, modify or reuse it beyond what is plainly allowed.',
+    body: 'The service itself, its design, interface, logos and features, belongs to us. Please enjoy it the way it is meant to be enjoyed, and do not copy, modify or reuse it beyond what is plainly allowed.',
   },
   {
     title: '7. Links to third parties',
@@ -35,11 +35,11 @@ const sections = [
   },
   {
     title: '8. Availability and changes',
-    body: 'We work hard to keep the service reliable and dependable. From time to time we may update, pause or retire parts of it, and we may revise these terms — the latest version always applies. When we make changes, we will do our best to keep you informed, and continued use simply means you are comfortable with them.',
+    body: 'We work hard to keep the service reliable and dependable. From time to time we may update, pause or retire parts of it, and we may revise these terms. The latest version always applies. When we make changes, we will do our best to keep you informed, and continued use simply means you are comfortable with them.',
   },
   {
     title: '9. No warranties',
-    body: 'Like any service, we provide it "as is" and "as available" — without a promise that it will be uninterrupted or error-free. We will always give it our best, and we hope you will always enjoy it, but we cannot guarantee perfection.',
+    body: 'Like any service, we provide it "as is" and "as available", without a promise that it will be uninterrupted or error free. We will always give it our best, and we hope you will always enjoy it, but we cannot guarantee perfection.',
   },
   {
     title: '10. Limitation of liability',
@@ -47,7 +47,7 @@ const sections = [
   },
   {
     title: '11. Termination',
-    body: 'If you ever break these terms, we may need to suspend or end your access — but we will only do so when it is truly necessary. You can stop using the service or delete your account at any time, and your content will be handled with care according to our deletion practices.',
+    body: 'If you ever break these terms, we may need to suspend or end your access, but we will only do so when it is truly necessary. You can stop using the service or delete your account at any time, and your content will be handled with care according to our deletion practices.',
   },
   {
     title: '12. Contact',
@@ -59,7 +59,7 @@ export function TermsPage() {
   usePageMeta({
     title: 'Terms of Service · Open When Letters',
     description:
-      'The terms that govern your use of Open When Letters — from accounts and your content to privacy, liability and changes to the service.',
+      'The terms that govern your use of Open When Letters, from accounts and your content to privacy, liability and changes to the service.',
     path: '/terms',
   })
 
@@ -84,7 +84,7 @@ export function TermsPage() {
             <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-ink-soft sm:text-lg">
               These terms are short and written in plain language, because a
               service about heartfelt words should not bury them in fine print.
-              Please read them at your leisure — and if anything feels unclear,
+              Please read them at your leisure, and if anything feels unclear,
               we are always glad to talk it through.
             </p>
           </motion.div>

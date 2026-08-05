@@ -66,7 +66,7 @@ export function LoginPage() {
     setResending(true)
     try {
       await resendConfirmation(email.trim())
-      toast('Confirmation email sent — check your inbox.')
+      toast('Confirmation email sent. Check your inbox.')
     } catch (err) {
       toast(err instanceof Error ? err.message : 'Could not resend the email.')
     } finally {
@@ -78,7 +78,7 @@ export function LoginPage() {
     <AuthLayout>
       <AuthCard
         title="Welcome back"
-        subtitle="Sign in to your account — your letters are waiting."
+        subtitle="Sign in to your account. Your letters are waiting."
         footer={
           <p className="text-sm text-ink-soft">
             New here?{' '}
@@ -94,7 +94,7 @@ export function LoginPage() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           {searchParams.get('verified') === '1' && (
             <div className="rounded-xl border border-highlighter-yellow/60 bg-highlighter-yellow/30 px-4 py-3 text-sm font-medium text-forest-ink">
-              Email confirmed — welcome! Sign in to continue.
+              Email confirmed. Welcome! Sign in to continue.
             </div>
           )}
 

@@ -10,7 +10,7 @@ const steps = [
   {
     number: '02',
     title: 'Write your letters',
-    text: 'Add unlimited letters — one for bad days, one for birthdays, one for everything in between. They autosave as you type.',
+    text: 'Add unlimited letters, one for bad days, one for birthdays, one for everything in between. They autosave as you type.',
   },
   {
     number: '03',

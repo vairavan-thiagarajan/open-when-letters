@@ -51,8 +51,8 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.18, ease: EASE }}
             className="mt-6 text-base leading-relaxed text-ink-soft sm:text-lg"
           >
-            Write a collection of heartfelt letters — one for missing me, one for
-            bad days, one for every moment in between — then share it with the
+            Write a collection of heartfelt letters, one for missing me, one for
+            bad days, one for every moment in between, then share it with the
             person you love using a single, beautiful link.
           </motion.p>
 

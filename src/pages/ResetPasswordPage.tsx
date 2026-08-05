@@ -70,7 +70,7 @@ export function ResetPasswordPage() {
     setError(null)
     try {
       await updatePassword(password)
-      toast('Password updated — welcome back.')
+      toast('Password updated. Welcome back.')
       navigate('/collections', { replace: true })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not update your password.')
@@ -82,7 +82,7 @@ export function ResetPasswordPage() {
     <AuthLayout>
       <AuthCard
         title="Choose a new password"
-        subtitle="Pick something you'll remember — your letters will thank you."
+        subtitle="Pick something you'll remember. Your letters will thank you."
         footer={
           <p className="text-sm text-ink-soft">
             Prefer to skip?{' '}

@@ -6,7 +6,7 @@ export function Logo({ className }: { className?: string }) {
     <Link
       to="/"
       className={cn('group flex items-center gap-2.5', className)}
-      aria-label="Open When Letters — home"
+      aria-label="Open When Letters home"
     >
       <span className="grid h-9 w-9 place-items-center rounded-xl bg-highlighter-yellow text-forest-ink shadow-[rgba(0,0,0,0.05)_0px_1px_2px_0px] transition-transform duration-300 group-hover:scale-105 group-hover:rotate-[-4deg]">
         <svg viewBox="0 0 24 24" fill="none" className="h-4.5 w-5" aria-hidden>

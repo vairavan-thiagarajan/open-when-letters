@@ -27,6 +27,7 @@ export interface Database {
           password_hash: string
           music_url: string
           visibility: string
+          from: string
         }
         Insert: {
           id?: string
@@ -45,6 +46,7 @@ export interface Database {
           password_hash?: string
           music_url?: string
           visibility?: string
+          from?: string
         }
         Update: {
           id?: string
@@ -63,6 +65,7 @@ export interface Database {
           password_hash?: string
           music_url?: string
           visibility?: string
+          from?: string
         }
         Relationships: [
           {

@@ -7,7 +7,7 @@ import { usePageMeta, absoluteUrl } from '@/utils/meta'
 
 export function LandingPage() {
   usePageMeta({
-    title: 'Open When Letters — Letters that wait for the right moment',
+    title: 'Open When Letters: Letters that wait for the right moment',
     description:
       'Write heartfelt letters to be opened at just the right moment. A quiet place to keep the words someone will need later.',
     path: '/',

@@ -61,7 +61,7 @@ export function SignupPage() {
             </motion.span>
             <p className="mx-auto mt-6 max-w-sm text-sm leading-relaxed text-ink-soft">
               Click the link inside the email to confirm your address, then sign
-              in. The words can wait — they always do.
+              in. The words can wait. They always do.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
@@ -73,7 +73,7 @@ export function SignupPage() {
                   setResending(true)
                   try {
                     await resendConfirmation(pendingEmail)
-                    toast('Verification email sent — check your inbox.')
+                    toast('Verification email sent. Check your inbox.')
                   } catch (err) {
                     toast(err instanceof Error ? err.message : 'Could not resend the email.')
                   } finally {
@@ -117,7 +117,7 @@ export function SignupPage() {
       if (result.needsEmailConfirmation) {
         setPendingEmail(email.trim())
       } else {
-        toast('Account created — welcome!')
+        toast('Account created. Welcome!')
         navigate('/collections', { replace: true })
       }
     } catch (err) {
@@ -130,7 +130,7 @@ export function SignupPage() {
     <AuthLayout>
       <AuthCard
         title="Create your account"
-        subtitle="Write letters for someone you love — keep them safe behind your own login."
+        subtitle="Write letters for someone you love. Keep them safe behind your own login."
         footer={
           <p className="text-sm text-ink-soft">
             Already have an account?{' '}

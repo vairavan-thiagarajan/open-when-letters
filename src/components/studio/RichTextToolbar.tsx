@@ -80,7 +80,7 @@ export function RichTextToolbar({ textareaRef, onChange }: RichTextToolbarProps)
     {
       label: 'Divider',
       title: 'Divider',
-      glyph: '—',
+      glyph: '━',
       className: '',
       action: () => run((text, start, end) => insertDivider(text, start, end)),
     },
@@ -109,7 +109,7 @@ export function RichTextToolbar({ textareaRef, onChange }: RichTextToolbarProps)
         </button>
       ))}
       <span className="ml-auto hidden text-xs text-mist sm:block">
-        **bold** · *italic* · # heading · — divider
+        **bold** · *italic* · # heading · divider
       </span>
     </div>
   )

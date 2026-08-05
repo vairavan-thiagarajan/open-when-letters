@@ -29,7 +29,7 @@ function friendlyError(error: AuthError | Error | null | undefined): string {
     return 'Enter a valid email address.'
   }
   if (/signup disabled/i.test(message)) {
-    return 'New sign-ups are currently disabled.'
+    return 'New signups are currently disabled.'
   }
   return message
 }

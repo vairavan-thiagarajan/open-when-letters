@@ -8,6 +8,7 @@ import {
 } from 'framer-motion'
 import { EASE } from '@/utils/anim'
 import { cn } from '@/utils/cn'
+import { LETTER_FONT_FAMILY } from '@/data/letterStudio'
 
 export type EnvelopeStage = 'idle' | 'opening' | 'pulling' | 'sealing'
 
@@ -222,7 +223,10 @@ export function EnvelopeScene({
                   )}
                 >
                   <div className="paper-grain flex h-full w-full flex-col rounded-sm bg-paper px-4 pt-3 shadow-[0_14px_28px_-16px_rgba(26,51,0,0.45)]">
-                    <p className="font-display text-sm leading-snug font-semibold text-ink sm:text-base">
+                    <p
+                      className="text-sm leading-snug font-semibold text-ink sm:text-base"
+                      style={{ fontFamily: LETTER_FONT_FAMILY, fontStyle: 'italic' }}
+                    >
                       Open when {title}
                     </p>
                     <div className="mt-2 space-y-1.5">

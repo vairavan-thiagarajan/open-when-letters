@@ -45,7 +45,7 @@ export function BuilderPage() {
 
   usePageMeta({
     title: collection ? `Edit ${collection.title} · Open When Letters` : 'Letter builder · Open When Letters',
-    description: 'Compose your collection of open-when letters.',
+    description: 'Compose your collection of open when letters.',
     path: `/edit/${token}`,
     noindex: true,
   })
@@ -121,7 +121,6 @@ export function BuilderPage() {
     try {
       const letter = await letterService.create(collection.id, {
         title: '',
-        trigger: '',
         body: '',
         coverImage: 0,
       })
@@ -285,7 +284,7 @@ export function BuilderPage() {
                       strokeLinejoin="round"
                     />
                   </svg>
-                  Customize
+                  Settings
                 </Button>
                 <Button
                   size="lg"
@@ -310,15 +309,35 @@ export function BuilderPage() {
               className="w-full resize-none border-none bg-transparent px-2 py-1.5 text-ink placeholder:text-mist outline-none"
               aria-label="Collection description"
             />
+            <div className="mt-4 border-t border-dashed border-line pt-4">
+              <label
+                htmlFor="collection-from"
+                className="mb-1 block px-2 text-xs font-semibold tracking-widest font-mono text-forest-ink uppercase"
+              >
+                From
+              </label>
+              <input
+                id="collection-from"
+                value={collection.from}
+                onChange={(event) => updateMeta({ from: event.target.value })}
+                placeholder="Your name, or whoever the letters are from"
+                maxLength={60}
+                className="w-full border-none bg-transparent px-2 py-1.5 text-ink placeholder:text-mist outline-none"
+                aria-label="Collection from"
+              />
+              <p className="mt-1 px-2 text-xs leading-relaxed text-mist">
+                Shown as the signature on the collection page.
+              </p>
+            </div>
             <div className="mt-4 border-t border-dashed border-line pt-5">
               <p className="text-xs leading-relaxed text-mist">
-                Accent colours, password &amp; music live in{' '}
+                Visibility &amp; password live in{' '}
                 <button
                   type="button"
                   onClick={() => setSettingsOpen(true)}
                   className="font-semibold text-forest-ink underline decoration-highlighter-yellow underline-offset-2 transition-colors hover:text-ink"
                 >
-                  Customize
+                  Settings
                 </button>
                 .
               </p>
@@ -341,7 +360,7 @@ export function BuilderPage() {
                 <div className="rounded-xl border border-dashed border-line bg-paper/50">
                   <EmptyState
                     title="No letters yet"
-                    text="Add your first letter — a little note for a moment that hasn't happened yet."
+                    text="Add your first letter, a little note for a moment that hasn't happened yet."
                   >
                     <Button onClick={addLetter}>Write your first letter</Button>
                   </EmptyState>
@@ -386,11 +405,6 @@ export function BuilderPage() {
                       <span className="block truncate font-display text-xl font-semibold tracking-tight text-ink">
                         {letter.title || 'Untitled letter'}
                       </span>
-                      {letter.trigger && (
-                        <span className="mt-0.5 block truncate text-xs text-ink-soft">
-                          {letter.trigger}
-                        </span>
-                      )}
                     </span>
                     <span className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-soft transition-colors group-hover:text-forest-ink">
                       Edit
@@ -517,7 +531,7 @@ export function BuilderPage() {
                     <CopyButton value={editUrl} />
                   </div>
                   <p className="mt-2 text-xs text-mist">
-                    Keep this safe — anyone with it can edit the collection.
+                    Keep this safe. Anyone with it can edit the collection.
                     Visitors never see it.
                   </p>
                 </div>

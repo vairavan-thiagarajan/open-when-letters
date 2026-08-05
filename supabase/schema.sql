@@ -31,7 +31,8 @@ create table if not exists public.collections (
   font_pair     text not null default 'auto',
   password_hash text not null default '',
   music_url     text not null default '',
-  visibility    text not null default 'public'
+  visibility    text not null default 'public',
+  "from"        text not null default ''
 );
 
 -- ----------------------------------------------------------------------------

@@ -21,6 +21,7 @@ export type CollectionUpdate = Partial<
     | 'passwordHash'
     | 'musicUrl'
     | 'visibility'
+    | 'from'
   >
 >
 
@@ -41,6 +42,7 @@ function mapRow(row: CollectionRow): Collection {
     passwordHash: row.password_hash,
     musicUrl: row.music_url,
     visibility: (row.visibility as Visibility) || 'public',
+    from: row.from,
     userId: row.user_id,
   }
 }
@@ -82,6 +84,7 @@ export const collectionService = {
       password_hash: '',
       music_url: '',
       visibility: 'public',
+      from: input.from ?? '',
       user_id: input.userId ?? null,
     }
 
@@ -153,6 +156,7 @@ export const collectionService = {
         ...(patch.passwordHash !== undefined && { password_hash: patch.passwordHash }),
         ...(patch.musicUrl !== undefined && { music_url: patch.musicUrl }),
         ...(patch.visibility !== undefined && { visibility: patch.visibility }),
+        ...(patch.from !== undefined && { from: patch.from }),
         updated_at: new Date().toISOString(),
       })
       .eq('id', id)

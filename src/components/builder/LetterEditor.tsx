@@ -5,7 +5,7 @@ import { SchedulePicker } from '@/components/builder/SchedulePicker'
 import { RichTextToolbar } from '@/components/studio/RichTextToolbar'
 import { LetterToolbar } from '@/components/studio/LetterToolbar'
 import { LetterPreview } from '@/components/studio/LetterPreview'
-import { letterFontById } from '@/data/letterStudio'
+import { LETTER_FONT_FAMILY } from '@/data/letterStudio'
 import type { CollectionLetter } from '@/services/types'
 import type { LetterUpdate } from '@/services/letterService'
 import { EASE } from '@/utils/anim'
@@ -33,7 +33,7 @@ export function LetterEditor({
   onDone,
 }: LetterEditorProps) {
   const bodyRef = useRef<HTMLTextAreaElement>(null)
-  const font = letterFontById(letter.font)
+  const letterFontStyle = { fontFamily: LETTER_FONT_FAMILY, fontStyle: 'italic' }
 
   return (
     <motion.div
@@ -103,28 +103,16 @@ export function LetterEditor({
       </div>
 
       <div className="mt-5 space-y-5">
-        <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="Open when…">
-            <input
-              type="text"
-              value={letter.title}
-              onChange={(event) => onChange({ title: event.target.value })}
-              placeholder="You miss me"
-              maxLength={60}
-              className={inputClass}
-            />
-          </Field>
-          <Field label="A short note">
-            <input
-              type="text"
-              value={letter.trigger}
-              onChange={(event) => onChange({ trigger: event.target.value })}
-              placeholder="For the quiet moments when the distance feels loud."
-              maxLength={120}
-              className={inputClass}
-            />
-          </Field>
-        </div>
+        <Field label="Open when…">
+          <input
+            type="text"
+            value={letter.title}
+            onChange={(event) => onChange({ title: event.target.value })}
+            placeholder="You miss me"
+            maxLength={60}
+            className={inputClass}
+          />
+        </Field>
 
         <Field label="When does it open">
           <SchedulePicker
@@ -142,7 +130,7 @@ export function LetterEditor({
               onChange={(event) => onChange({ body: event.target.value })}
               placeholder={'Dear love,\n\nIf you\'re reading this, the moment I wrote for has arrived…'}
               rows={9}
-              style={font ? { fontFamily: font.family } : undefined}
+              style={letterFontStyle}
               className={`${inputClass} resize-none leading-relaxed`}
             />
           </div>

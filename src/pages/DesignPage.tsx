@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
-import { useState, type ReactNode } from 'react'
+import { useState, type CSSProperties, type ReactNode } from 'react'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { Button } from '@/components/ui/Button'
 import { Reveal } from '@/components/ui/Reveal'
 import { useToast } from '@/components/ui/toastContext'
+import { LETTER_FONT_FAMILY } from '@/data/letterStudio'
 import { usePageMeta } from '@/utils/meta'
 import { cn } from '@/utils/cn'
 
@@ -49,7 +50,7 @@ const colors = [
     className: 'bg-highlighter-yellow',
     hex: '#FFE95C',
     role: 'Highlights & hover edges',
-    note: 'Used sparingly — it is the accent.',
+    note: 'Used sparingly. It is the accent.',
   },
   {
     name: 'Mist',
@@ -76,7 +77,7 @@ const colors = [
     name: 'Note Blush',
     className: 'bg-sticky-note-blush',
     hex: '#F6D0FF',
-    role: 'Sticky-note accent',
+    role: 'Sticky note accent',
     note: 'Lives in the footer glows.',
   },
 ]
@@ -85,11 +86,19 @@ const radii = [
   { label: 'Buttons', value: 'rounded-md', className: 'rounded-md' },
   { label: 'Icon boxes', value: 'rounded-xl', className: 'rounded-xl' },
   { label: 'Cards & inputs', value: 'rounded-2xl', className: 'rounded-2xl' },
-  { label: 'Letter paper', value: 'rounded-[2rem]', className: 'rounded-[2rem]' },
+  { label: 'File folders', value: 'rounded-[1.25rem]', className: 'rounded-[1.25rem]' },
+  { label: 'Panels & modals', value: 'rounded-[2rem]', className: 'rounded-[2rem]' },
   { label: 'Pills', value: 'rounded-full', className: 'rounded-full' },
 ]
 
-const typeScale = [
+interface TypeRow {
+  label: string
+  className: string
+  use: string
+  style?: CSSProperties
+}
+
+const typeScale: TypeRow[] = [
   {
     label: 'Display · h1',
     className: 'font-display text-3xl font-semibold tracking-tight sm:text-5xl',
@@ -103,7 +112,19 @@ const typeScale = [
   {
     label: 'Card title · h3',
     className: 'font-display text-2xl font-semibold tracking-tight',
-    use: 'Cards, modals & letters',
+    use: 'Cards & modals',
+  },
+  {
+    label: 'Letter title',
+    className: 'text-2xl leading-tight',
+    style: { fontFamily: LETTER_FONT_FAMILY, fontStyle: 'italic' },
+    use: 'Cover titles & letter headers',
+  },
+  {
+    label: 'Letter body',
+    className: 'text-base leading-loose',
+    style: { fontFamily: LETTER_FONT_FAMILY, fontStyle: 'italic' },
+    use: 'The words of every letter',
   },
   {
     label: 'Body',
@@ -124,12 +145,12 @@ const typeScale = [
 
 const principles = [
   {
-    title: 'Warm & hand-made',
-    body: 'Paper tones, sticky notes, a postage stamp, dashed seams, a heartbeat. It should feel like something sealed by hand — never like a dashboard.',
+    title: 'Warm & handmade',
+    body: 'Paper tones, a sealed kraft envelope, manila file folders and a wax seal. It should feel like something folded and tucked away by hand, never like a dashboard.',
   },
   {
     title: 'One accent at a time',
-    body: 'Highlighter-yellow is reserved for highlights and hover edges. When something glows, it means “this is the moment”.',
+    body: 'Highlighter yellow is reserved for highlights and hover edges, terracotta for the wax seal and destructive moments. When something glows, it means “this is the moment”.',
   },
   {
     title: 'Icons are drawn, not typed',
@@ -137,11 +158,11 @@ const principles = [
   },
   {
     title: 'Type does the hierarchy',
-    body: 'Weight and the mono eyebrow do the work — not an ever-growing list of sizes. Five sizes cover the whole product.',
+    body: 'Weight and the mono eyebrow do the work, not an ever growing list of sizes. The scale stays small on purpose.',
   },
   {
     title: 'Motion that breathes',
-    body: 'Slow, gentle reveals; fast, snappy taps. Nothing spins or loops forever — and everything respects the system’s reduced-motion setting.',
+    body: 'Slow, gentle reveals; fast, snappy taps. Nothing spins or loops forever, and everything respects the system’s reduced-motion setting.',
   },
   {
     title: 'Colour does the work, not shadows',
@@ -150,8 +171,8 @@ const principles = [
 ]
 
 const motionFacts = [
-  { k: 'EASE', v: '[0.22, 1, 0.36, 1] — the signature curve, used for every reveal and transition' },
-  { k: 'Springs', v: 'gentle · soft · snappy — micro-interactions and entrances' },
+  { k: 'EASE', v: '[0.22, 1, 0.36, 1], the signature curve, used for every reveal and transition' },
+  { k: 'Springs', v: 'gentle · soft · snappy, for microinteractions and entrances' },
   { k: 'Reveal', v: 'fade + 28px rise, viewport margin -70px, 0.65s' },
   { k: 'Press', v: 'buttons tap at 0.97 scale with a soft ripple' },
   { k: 'Respect', v: 'MotionConfig reducedMotion="user" + a CSS media query for reduced motion' },
@@ -240,7 +261,7 @@ export function DesignPage() {
   usePageMeta({
     title: 'Design principles · Open When Letters',
     description:
-      'The design system behind Open When Letters — colour, typography, spacing, radius, motion and the rules that keep it warm, consistent and hand-made.',
+      'The design system behind Open When Letters: colour, typography, spacing, radius, motion and the rules that keep it warm, consistent and handmade.',
     path: '/design',
   })
 
@@ -258,8 +279,8 @@ export function DesignPage() {
               Design principles
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-ink-soft sm:text-lg">
-              This is the design system we built for Open When Letters — from
-              scratch, and small on purpose. A paper palette, three fonts, five
+              This is the design system we built for Open When Letters, from
+              scratch, and small on purpose. A paper palette, four fonts, six
               radii, two shadows and one accent. Here is exactly how it is put
               together.
             </p>
@@ -290,9 +311,9 @@ export function DesignPage() {
           <Reveal className="mt-16">
             <SectionLabel>02 · Typography</SectionLabel>
             <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Three voices
+              Four voices
             </h2>
-            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <SectionCard>
                 <p className="font-mono text-xs font-semibold tracking-widest text-mist uppercase">
                   Display
@@ -301,7 +322,7 @@ export function DesignPage() {
                   Aa
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-                  Bricolage Grotesque — every heading. Tight tracking, semibold, a little playful.
+                  Bricolage Grotesque for every heading. Tight tracking, semibold, a little playful.
                 </p>
               </SectionCard>
               <SectionCard>
@@ -310,7 +331,7 @@ export function DesignPage() {
                 </p>
                 <p className="mt-3 text-6xl font-medium tracking-tight text-ink">Aa</p>
                 <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-                  Inter Variable — all body copy, buttons and labels. Quiet and readable.
+                  Inter Variable for all body copy, buttons and labels. Quiet and readable.
                 </p>
               </SectionCard>
               <SectionCard>
@@ -319,7 +340,22 @@ export function DesignPage() {
                 </p>
                 <p className="mt-3 font-mono text-6xl font-medium text-ink">Aa</p>
                 <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-                  Roboto Mono — eyebrows, captions and codes. It whispers “label”.
+                  Roboto Mono for eyebrows, captions and codes. It whispers “label”.
+                </p>
+              </SectionCard>
+              <SectionCard>
+                <p className="font-mono text-xs font-semibold tracking-widest text-mist uppercase">
+                  Letter
+                </p>
+                <p
+                  className="mt-3 text-5xl font-medium text-ink"
+                  style={{ fontFamily: LETTER_FONT_FAMILY, fontStyle: 'italic' }}
+                >
+                  Aa
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+                  Cormorant Garamond, always italic. The hand every letter body
+                  and every cover title is written in.
                 </p>
               </SectionCard>
             </div>
@@ -331,7 +367,7 @@ export function DesignPage() {
                   className="flex flex-col gap-2 bg-paper px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div className="min-w-0">
-                    <p className={cn('truncate', t.className)}>The right moment</p>
+                    <p className={cn('truncate', t.className)} style={t.style}>The right moment</p>
                   </div>
                   <div className="shrink-0 sm:ml-6 sm:text-right">
                     <p className="font-mono text-xs font-semibold tracking-widest text-forest-ink uppercase">
@@ -348,9 +384,9 @@ export function DesignPage() {
           <Reveal className="mt-16">
             <SectionLabel>03 · Shape</SectionLabel>
             <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Five radii, each with a job
+              Six radii, each with a job
             </h2>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="mt-6 grid gap-4 sm:grid-cols-3 lg:grid-cols-6">
               {radii.map((r) => (
                 <SectionCard key={r.label} className="flex flex-col items-center gap-3 p-6">
                   <span
@@ -391,7 +427,7 @@ export function DesignPage() {
                 <p className="mt-1 text-sm font-semibold tracking-tight text-ink">Lift</p>
                 <p className="font-mono text-xs text-mist">0 2px 8px rgba(0,0,0,0.08)</p>
                 <p className="text-sm leading-relaxed text-ink-soft">
-                  Hovered or floating things — modals, cards mid-air.
+                  Hovered or floating things, like modals and cards midair.
                 </p>
               </SectionCard>
             </div>

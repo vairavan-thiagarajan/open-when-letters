@@ -19,10 +19,14 @@ import { setPageMeta, absoluteUrl } from '@/utils/meta'
 import { getCollectionOgImage } from '@/utils/ogImage'
 import { getUnlockWindow } from '@/utils/schedule'
 import { hasUnlockedCollection, markCollectionUnlocked } from '@/utils/password'
+import { useUser } from '@/context/authContext'
+import { LETTER_FONT_FAMILY } from '@/data/letterStudio'
+import { EASE } from '@/utils/anim'
 import type { Collection, CollectionLetter } from '@/services/types'
 
 export function CollectionPage() {
   const { slug = '' } = useParams<{ slug: string }>()
+  const user = useUser()
 
   const [collection, setCollection] = useState<Collection | null>(null)
   const [letters, setLetters] = useState<CollectionLetter[]>([])
@@ -30,11 +34,13 @@ export function CollectionPage() {
   const [notFound, setNotFound] = useState(false)
   const [activeLetter, setActiveLetter] = useState<CollectionLetter | null>(null)
   const [unlocked, setUnlocked] = useState(false)
+  const [revealed, setRevealed] = useState(false)
 
   const closeLetter = useCallback(() => setActiveLetter(null), [])
 
   useEffect(() => {
     let cancelled = false
+    setRevealed(false)
 
     const load = async () => {
       try {
@@ -182,13 +188,54 @@ export function CollectionPage() {
     { open: [], locked: [] },
   )
 
+  const isOwner = collection.userId !== null && collection.userId === user?.id
+  const visitor = !isOwner
+
+  const signature = (
+    <>
+      {collection.from ? (
+        <>
+          <p className="text-sm text-mist">From</p>
+          <p
+            className="mt-1 text-2xl leading-tight text-forest-ink"
+            style={{ fontFamily: LETTER_FONT_FAMILY, fontStyle: 'italic' }}
+          >
+            {collection.from}
+          </p>
+        </>
+      ) : (
+        <>
+          <p className="text-sm text-mist">Made with love on</p>
+          <Link
+            to="/create"
+            className="mt-1 inline-block font-display text-lg font-semibold text-forest-ink transition-opacity hover:opacity-80"
+          >
+            Open When Letters
+          </Link>
+        </>
+      )}
+    </>
+  )
+
   return (
     <ThemedSurface collection={collection} className="flex flex-col">
-      <Navbar />
+      {visitor ? (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: revealed ? 1 : 0 }}
+          transition={{ duration: 1.2, ease: EASE }}
+        >
+          <Navbar />
+        </motion.div>
+      ) : (
+        <Navbar />
+      )}
       <main className="flex-1">
         <CollectionHero
           collection={collection}
-          letterCount={letters.length}
+          shadow={false}
+          visitor={visitor}
+          onRevealed={() => setRevealed(true)}
         />
 
         <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8 sm:pb-28">
@@ -200,6 +247,8 @@ export function CollectionPage() {
                   letter={letter}
                   index={index}
                   onOpen={() => setActiveLetter(letter)}
+                  shadow={false}
+                  visitor={visitor}
                 />
               ))}
               {locked.map((letter, index) => (
@@ -207,34 +256,51 @@ export function CollectionPage() {
                   key={letter.id}
                   letter={letter}
                   index={open.length + index}
+                  shadow={false}
+                  visitor={visitor}
                 />
               ))}
             </div>
           ) : (
             <div className="rounded-xl border border-dashed border-line bg-paper/50">
-              <EmptyState
-                title="This collection is still empty"
-                text="Letters are still being written. Check back soon — the best things are worth the wait."
-              >
-                <Link to="/create" className="inline-block">
-                  <Button variant="outline">Start your own collection</Button>
-                </Link>
-              </EmptyState>
+              {isOwner ? (
+                <EmptyState
+                  title="No letters yet"
+                  text="Add your first letter, a little note for a moment that hasn't happened yet."
+                >
+                  <Link to={`/edit/${collection.editToken}`} className="inline-block">
+                    <Button>Write your first letter</Button>
+                  </Link>
+                </EmptyState>
+              ) : (
+                <EmptyState
+                  title="This collection is still empty"
+                  text="Letters are still being written. Check back soon. The best things are worth the wait."
+                >
+                  <Link to="/create" className="inline-block">
+                    <Button variant="outline">Start your own collection</Button>
+                  </Link>
+                </EmptyState>
+              )}
             </div>
           )}
 
           <div className="mt-16 text-center">
-            <p className="text-sm text-mist">Made with love on</p>
-            <Link
-              to="/create"
-              className="mt-1 inline-block font-display text-lg font-semibold text-forest-ink transition-opacity hover:opacity-80"
-            >
-              Open When Letters
-            </Link>
+            {visitor ? (
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.6, ease: EASE }}
+              >
+                {signature}
+              </motion.div>
+            ) : (
+              <div>{signature}</div>
+            )}
           </div>
         </section>
       </main>
-      <Footer />
 
       {collection.musicUrl && <MusicPlayer src={collection.musicUrl} />}
 

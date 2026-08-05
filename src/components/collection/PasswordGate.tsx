@@ -110,7 +110,7 @@ export function PasswordGate({ title, passwordHash, onUnlock }: PasswordGateProp
           </Button>
           {error && (
             <p className="text-sm font-medium text-terracotta" role="alert">
-              That password isn't right — try again.
+              That password isn't right. Try again.
             </p>
           )}
         </motion.form>

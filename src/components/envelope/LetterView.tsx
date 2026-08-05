@@ -4,7 +4,7 @@ import { formatDate } from '@/utils/formatDate'
 import { LetterCanvas } from '@/components/studio/LetterCanvas'
 import { InlineText } from '@/components/studio/RichText'
 import { AudioAttachment } from '@/components/studio/AudioAttachment'
-import { backgroundCss, letterFontById } from '@/data/letterStudio'
+import { backgroundCss, LETTER_FONT_FAMILY } from '@/data/letterStudio'
 import { parseBody } from '@/utils/markup'
 import { EASE } from '@/utils/anim'
 import { cn } from '@/utils/cn'
@@ -28,7 +28,7 @@ interface LetterViewProps {
  */
 export function LetterView({ letter }: LetterViewProps) {
   const blocks = parseBody(letter.body)
-  const font = letterFontById(letter.font)
+  const letterFontStyle = { fontFamily: LETTER_FONT_FAMILY, fontStyle: 'italic' }
   const hasBackground = Boolean(backgroundCss(letter.background))
 
   return (
@@ -64,22 +64,17 @@ export function LetterView({ letter }: LetterViewProps) {
           <div className="relative px-7 py-12 sm:px-16 sm:py-16 lg:px-20">
             <LetterCanvas stickers={letter.stickers} photos={letter.photos} readOnly />
 
-            <div style={font ? { fontFamily: font.family } : undefined}>
+            <div style={letterFontStyle}>
               <div className="text-center">
                 <p className="inline-flex items-center gap-2 rounded-full bg-blush px-4 py-1.5 font-mono text-xs font-semibold tracking-widest text-forest-ink uppercase">
                   Open when
                 </p>
                 <h1
-                  style={font ? { fontFamily: font.family } : undefined}
-                  className="mt-5 font-display text-3xl leading-tight font-semibold text-ink sm:mt-6 sm:text-5xl"
+                  style={letterFontStyle}
+                  className="mt-8 font-display text-3xl leading-tight font-semibold text-ink sm:mt-10 sm:text-5xl"
                 >
                   {letter.title}
                 </h1>
-                {letter.trigger && (
-                  <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-ink-soft sm:text-base">
-                    {letter.trigger}
-                  </p>
-                )}
                 <p className="mt-3 font-mono text-xs tracking-wide text-mist">
                   Sealed on {formatDate(letter.createdAt)}
                 </p>
@@ -120,7 +115,7 @@ export function LetterView({ letter }: LetterViewProps) {
                     return (
                       <motion.h2
                         key={index}
-                        style={font ? { fontFamily: font.family } : undefined}
+                        style={letterFontStyle}
                         initial={{ opacity: 0, y: 14 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay, ease: EASE }}
@@ -133,7 +128,7 @@ export function LetterView({ letter }: LetterViewProps) {
                   return (
                     <motion.p
                       key={index}
-                      style={font ? { fontFamily: font.family } : undefined}
+                      style={letterFontStyle}
                       initial={{ opacity: 0, y: 14 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay, ease: EASE }}

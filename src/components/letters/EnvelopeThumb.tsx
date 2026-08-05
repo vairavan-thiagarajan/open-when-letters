@@ -1,123 +1,133 @@
-import { useId } from 'react'
-import { motion } from 'framer-motion'
+import { LETTER_FONT_FAMILY } from '@/data/letterStudio'
 import { cn } from '@/utils/cn'
-import { EASE } from '@/utils/anim'
 
 interface EnvelopeThumbProps {
   cover: number
   locked: boolean
   className?: string
+  /** The letter title, printed over the front pocket beneath "Open When". */
+  label?: string
+  /** Drop the ground + drop shadows for flat, shadow-free covers. */
+  shadow?: boolean
 }
 
 /**
- * A mini replica of the reading envelope: kraft paper, front pocket, fold
- * lines and a terracotta heart wax seal — the same object the recipient
- * opens, scaled down for covers and collection cards.
+ * A miniature replica of the reading envelope (the sealed, idle state of
+ * EnvelopeScene): the same kraft gradient, grain, rounding, deep shadow, wax
+ * seal and lighting sweep, scaled down for covers and collection cards.
  */
-export function EnvelopeThumb({ cover: _cover, locked, className }: EnvelopeThumbProps) {
-  const uid = useId().replace(/[^a-zA-Z0-9]/g, '')
-
-  const flapClosed = 'M18 22 L142 22 L80 52 Z'
-  const flapOpen = 'M18 22 L142 22 L80 8 Z'
-
+export function EnvelopeThumb({
+  cover: _cover,
+  locked: _locked,
+  className,
+  label,
+  shadow = true,
+}: EnvelopeThumbProps) {
   return (
-    <svg
-      viewBox="0 0 160 118"
-      fill="none"
-      className={cn('h-auto w-full', className)}
-      aria-hidden
-    >
-      <defs>
-        <linearGradient id={`thumb-body-${uid}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#e9d9b8" />
-          <stop offset="0.55" stopColor="#d8c39b" />
-          <stop offset="1" stopColor="#c3a878" />
-        </linearGradient>
-        <linearGradient id={`thumb-pocket-${uid}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#d8c39b" />
-          <stop offset="1" stopColor="#c3a878" />
-        </linearGradient>
-        <linearGradient id={`thumb-flap-${uid}`} x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0" stopColor="#e9d9b8" />
-          <stop offset="1" stopColor="#d8c39b" />
-        </linearGradient>
-        <linearGradient id={`thumb-seal-${uid}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#cb5521" />
-          <stop offset="1" stopColor="#a84317" />
-        </linearGradient>
-        <linearGradient id={`thumb-light-${uid}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#ffffff" stopOpacity="0.35" />
-          <stop offset="0.34" stopColor="#ffffff" stopOpacity="0.05" />
-          <stop offset="0.8" stopColor="#5a3c19" stopOpacity="0.06" />
-          <stop offset="1" stopColor="#5a3c19" stopOpacity="0.16" />
-        </linearGradient>
-      </defs>
+    <div className={cn('relative aspect-[10/7] w-full select-none', className)}>
+      {/* ground shadow that gives the envelope its dimensional read */}
+      {shadow && (
+        <div
+          aria-hidden
+          className="absolute -bottom-9 left-1/2 h-6 w-[88%] -translate-x-1/2 rounded-[50%] bg-black/50 blur-xl"
+        />
+      )}
 
-      {/* ground shadow */}
-      <ellipse cx="80" cy="112" rx="54" ry="6" fill="#46343b" opacity="0.08" />
+      <div className="relative aspect-[10/7] w-full">
+        {/* back panel — kraft paper */}
+        <div
+          className={cn(
+            'absolute inset-0 rounded-xl',
+            shadow && 'shadow-[0_28px_56px_-20px_rgba(0,0,0,0.55)]',
+          )}
+          style={{
+            background:
+              'linear-gradient(155deg, var(--color-kraft) 0%, var(--color-kraft-deep) 55%, var(--color-kraft-dark) 100%)',
+          }}
+        />
+        <div className="kraft-grain absolute inset-0 rounded-xl" aria-hidden />
 
-      {/* envelope back — kraft paper */}
-      <rect x="18" y="14" width="124" height="92" rx="12" fill={`url(#thumb-body-${uid})`} />
+        {/* front pocket with fold lines */}
+        <div
+          className="absolute inset-x-0 bottom-0 z-20 h-[56%]"
+          style={{
+            background:
+              'linear-gradient(180deg, var(--color-kraft-deep) 0%, var(--color-kraft-dark) 100%)',
+          }}
+        >
+          <svg
+            viewBox="0 0 320 148"
+            preserveAspectRatio="none"
+            className="h-full w-full"
+            aria-hidden
+          >
+            <path
+              d="M14 142 L160 54 L306 142"
+              fill="none"
+              stroke="rgba(74,52,20,0.28)"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
 
-      {/* letter peek (visible when opened) */}
-      <motion.g
-        initial={false}
-        animate={{ opacity: locked ? 0 : 1, y: locked ? -4 : 0 }}
-        transition={{ duration: 0.4, ease: EASE }}
-      >
-        <rect x="26" y="8" width="108" height="34" rx="6" fill="#fcfaf5" stroke="#e9d9b8" />
-        <rect x="40" y="18" width="42" height="3.5" rx="1.75" fill="#e3d2b0" />
-        <rect x="40" y="27" width="64" height="3.5" rx="1.75" fill="#e9d9b8" />
-      </motion.g>
+          {/* letter title printed over the pocket, below the fold lines */}
+          {label && (
+            <div className="pointer-events-none absolute inset-x-[8%] top-[10%] bottom-[8%] flex flex-col items-center justify-center">
+              <span className="font-mono text-[8px] font-semibold tracking-[0.14em] text-[#4a3414]/70 uppercase">
+                Open When
+              </span>
+              <span
+                className="mt-0.5 line-clamp-2 text-center text-[18px] leading-snug text-[#4a3414]"
+                style={{ fontFamily: LETTER_FONT_FAMILY, fontStyle: 'italic' }}
+              >
+                {label}
+              </span>
+            </div>
+          )}
+        </div>
 
-      {/* front pocket */}
-      <rect
-        x="18"
-        y="40"
-        width="124"
-        height="66"
-        rx="12"
-        fill={`url(#thumb-pocket-${uid})`}
-      />
+        {/* flap — sealed */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-40 h-[54%]">
+          <div
+            className="relative h-full w-full rounded-t-xl"
+            style={{
+              background:
+                'linear-gradient(180deg, var(--color-kraft) 0%, var(--color-kraft-deep) 100%)',
+              clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
+            }}
+          >
+            <div className="kraft-grain absolute inset-0" aria-hidden />
+            {/* heart wax seal */}
+            <span
+              aria-hidden
+              className="absolute top-[56%] left-1/2 grid aspect-square w-[12%] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full shadow-[inset_0_2px_4px_rgba(255,255,255,0.35),inset_0_-3px_6px_rgba(0,0,0,0.28),0_2px_6px_rgba(0,0,0,0.35)]"
+              style={{
+                background:
+                  'linear-gradient(135deg, var(--color-terracotta) 0%, #a84317 100%)',
+              }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" className="h-[48%] w-[48%] text-cream-paper/90" aria-hidden>
+                <path
+                  d="M12 20.5C7 16.5 3 13 3 8.8 3 6 5.2 4 7.9 4c1.7 0 3.1.8 4.1 2.2C13 4.8 14.4 4 16.1 4 18.8 4 21 6 21 8.8c0 4.2-4 7.7-9 11.7Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
 
-      {/* fold lines */}
-      <path
-        d="M28 94 L80 64 L132 94"
-        stroke="#4a3414"
-        strokeOpacity="0.28"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-
-      {/* flap */}
-      <motion.path
-        initial={false}
-        animate={{ d: locked ? flapClosed : flapOpen }}
-        transition={{ duration: 0.5, ease: EASE }}
-        fill={`url(#thumb-flap-${uid})`}
-      />
-
-      {/* heart wax seal */}
-      <motion.g
-        initial={false}
-        animate={{ opacity: locked ? 1 : 0, scale: locked ? 1 : 0.6 }}
-        transition={{ duration: 0.4 }}
-        style={{ originX: '80px', originY: '52px' }}
-      >
-        <circle cx="80" cy="52" r="10" fill={`url(#thumb-seal-${uid})`} />
-        <ellipse cx="80" cy="56.5" rx="9" ry="3.6" fill="#000" opacity="0.14" />
-        <ellipse cx="77.2" cy="48.6" rx="5.4" ry="2.8" fill="#fff" opacity="0.3" />
-        <g transform="translate(80 52) scale(0.55) translate(-12 -12.5)">
-          <path
-            d="M12 20.5C7 16.5 3 13 3 8.8 3 6 5.2 4 7.9 4c1.7 0 3.1.8 4.1 2.2C13 4.8 14.4 4 16.1 4 18.8 4 21 6 21 8.8c0 4.2-4 7.7-9 11.7Z"
-            fill="#fcfaf5"
-            fillOpacity="0.92"
-          />
-        </g>
-      </motion.g>
-
-      {/* lighting sweep — gives the kraft a dimensional read */}
-      <rect x="18" y="14" width="124" height="92" rx="12" fill={`url(#thumb-light-${uid})`} />
-    </svg>
+        {/* lighting sweep — makes the kraft read as dimensional */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-50 rounded-xl"
+          style={{
+            background:
+              'linear-gradient(115deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.06) 34%, rgba(90,60,25,0.08) 80%, rgba(90,60,25,0.2) 100%)',
+            boxShadow:
+              'inset 0 1px 1px rgba(255,255,255,0.35), inset 0 -1px 1px rgba(74,52,20,0.18)',
+          }}
+        />
+      </div>
+    </div>
   )
 }

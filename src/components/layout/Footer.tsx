@@ -46,7 +46,7 @@ function FooterMark() {
     <Link
       to="/"
       className="group flex w-fit items-center gap-2.5"
-      aria-label="Open When Letters — home"
+              aria-label="Open When Letters home"
     >
       <span className="grid h-9 w-9 place-items-center rounded-xl bg-highlighter-yellow text-forest-ink shadow-soft transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3">
         <svg viewBox="0 0 24 24" fill="none" className="h-4.5 w-5" aria-hidden>
@@ -146,7 +146,7 @@ export function Footer() {
             className="max-w-xl"
           >
             <p className="font-mono text-xs font-semibold tracking-widest text-highlighter-yellow uppercase">
-              P.S. — keep this letter for later
+              P.S. Keep this letter for later
             </p>
             <h2 className="mt-4 font-display text-[clamp(1.75rem,7vw,3rem)] leading-[1.04] font-semibold tracking-tight sm:text-5xl lg:text-6xl">
               Sealed with love,
@@ -162,7 +162,7 @@ export function Footer() {
             </h2>
             <p className="mt-5 max-w-md text-base leading-relaxed text-cream-paper/70">
               Every collection is a promise: no matter when they open it, the
-              words will be ready — and they will still be true.
+              words will be ready, and they will still be true.
             </p>
           </motion.div>
 

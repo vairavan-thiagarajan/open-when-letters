@@ -9,19 +9,19 @@ import { EASE } from '@/utils/anim'
 const sections = [
   {
     title: 'The story behind it',
-    body: 'Open When Letters began the simplest way a project can: for someone I love. She had so much to say to me, and I had so much to say back — but when we were both busy, the quiet moments to talk were few. So I built a place where we can leave our words for each other. No matter how busy life gets, we can still be there — in the things we say, in the letters left waiting for the right moment.',
+    body: 'Open When Letters began the simplest way a project can: for someone I love. She had so much to say to me, and I had so much to say back, but when we were both busy, the quiet moments to talk were few. So I built a place where we can leave our words for each other. No matter how busy life gets, we can still be there, in the things we say, in the letters left waiting for the right moment.',
   },
   {
     title: 'Why letters?',
-    body: 'A message read in the moment it matters lands differently. A letter for a bad day already knows what kind of day it is. Writing ahead lets you say the right thing at the right time — even when you are not there. That is how we stay close when life pulls us in different directions.',
+    body: 'A message read in the moment it matters lands differently. A letter for a bad day already knows what kind of day it is. Writing ahead lets you say the right thing at the right time, even when you are not there. That is how we stay close when life pulls us in different directions.',
   },
   {
     title: 'How it works',
-    body: 'You write a small collection of letters, one for each kind of moment — missing me, a hard day, a small win. Share a single, beautiful link with the person you love. They open each letter when the time is right, and it feels like you are right there beside them.',
+    body: 'You write a small collection of letters, one for each kind of moment: missing me, a hard day, a small win. Share a single, beautiful link with the person you love. They open each letter when the time is right, and it feels like you are right there beside them.',
   },
   {
     title: 'Made to feel personal',
-    body: 'Letters sit on warm paper tones with hand-drawn accents — like something you sealed by hand. No noise, no accounts required to read. Just words, waiting — our small way of being there for each other, in whatever ways we can.',
+    body: 'Letters sit on warm paper tones with hand drawn accents, like something you sealed by hand. No noise, no accounts required to read. Just words, waiting. Our small way of being there for each other, in whatever ways we can.',
   },
 ]
 
@@ -29,7 +29,7 @@ export function AboutPage() {
   usePageMeta({
     title: 'About · Open When Letters',
     description:
-      'The story behind Open When Letters — a quiet way for two people to be there for each other, even when life gets busy and the time to talk is short.',
+      'The story behind Open When Letters. A quiet way for two people to be there for each other, even when life gets busy and the time to talk is short.',
     path: '/about',
   })
 
@@ -58,7 +58,7 @@ export function AboutPage() {
               </span>
             </h1>
             <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-ink-soft sm:text-lg">
-              Open When Letters began as a small gift for someone I love — a way
+              Open When Letters began as a small gift for someone I love, a way
               to be there for each other even when life gets busy and the time
               to talk is short.
             </p>

@@ -2,15 +2,6 @@ export type Visibility = 'public' | 'unlisted'
 
 export type UnlockType = 'immediate' | 'date' | 'birthday' | 'anniversary'
 
-/** A curated font offered by the Letter Studio. */
-export interface LetterFont {
-  id: string
-  label: string
-  family: string
-  /** One-line description shown in the picker. */
-  vibe: string
-}
-
 /** A built-in background preset (all gradients reuse the existing palette). */
 export interface BackgroundPreset {
   id: string
@@ -57,6 +48,8 @@ export interface Collection {
   passwordHash: string
   musicUrl: string
   visibility: Visibility
+  /** The sender's name, shown as the signature on the shared page. */
+  from: string
   userId: string | null
 }
 
@@ -88,6 +81,8 @@ export interface CollectionInput {
   description: string
   coverImage: number
   theme: string
+  /** The sender's name, shown as the signature on the shared page. */
+  from?: string
   /** The signed-in account that owns this collection (null for guests). */
   userId?: string | null
 }

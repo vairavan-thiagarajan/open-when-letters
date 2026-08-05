@@ -25,12 +25,13 @@ export function CreateCollectionPage() {
   usePageMeta({
     title: 'Create a collection · Open When Letters',
     description:
-      'Start a gift of letters for one person — ready for every moment that has not happened yet.',
+      'Start a gift of letters for one person, ready for every moment that has not happened yet.',
     path: '/create',
     noindex: true,
   })
 
   const [title, setTitle] = useState('')
+  const [from, setFrom] = useState('')
   const [description, setDescription] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [creating, setCreating] = useState(false)
@@ -45,6 +46,7 @@ export function CreateCollectionPage() {
     try {
       const collection = await collectionService.create({
         title: title.trim(),
+        from: from.trim(),
         description: description.trim(),
         coverImage: 0,
         theme: 'say-briefly',
@@ -99,7 +101,7 @@ export function CreateCollectionPage() {
               Create a collection
             </h1>
             <p className="mt-3 text-ink-soft">
-              A gift of letters for one person — ready for every moment that
+              A gift of letters for one person, ready for every moment that
               hasn't happened yet.
             </p>
           </motion.div>
@@ -126,16 +128,27 @@ export function CreateCollectionPage() {
                 />
               </Field>
 
-                <Field label="A short description" hint="Optional">
-                  <textarea
-                    value={description}
-                    onChange={(event) => setDescription(event.target.value)}
-                    placeholder="Little letters for the big moments — open them when the time is right."
-                    rows={3}
-                    maxLength={240}
-                    className={`${inputClass()} resize-none leading-relaxed`}
-                  />
-                </Field>
+              <Field label="From" hint="Shown as the signature on the collection page">
+                <input
+                  type="text"
+                  value={from}
+                  onChange={(event) => setFrom(event.target.value)}
+                  placeholder="Your name, or whoever the letters are from"
+                  maxLength={60}
+                  className={inputClass()}
+                />
+              </Field>
+
+              <Field label="A short description" hint="Optional">
+                <textarea
+                  value={description}
+                  onChange={(event) => setDescription(event.target.value)}
+                  placeholder="Little letters for the big moments. Open them when the time is right."
+                  rows={3}
+                  maxLength={240}
+                  className={`${inputClass()} resize-none leading-relaxed`}
+                />
+              </Field>
             </div>
           </motion.div>
 

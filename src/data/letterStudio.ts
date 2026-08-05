@@ -1,24 +1,8 @@
-import type { BackgroundPreset, LetterFont } from '@/services/types'
+import type { BackgroundPreset } from '@/services/types'
 
-/** The curated letter fonts (max 8). The reader's default look is #1 below. */
-export const LETTER_FONTS: LetterFont[] = [
-  { id: 'caveat', label: 'Caveat', family: '"Caveat Variable", cursive', vibe: 'Handwritten note' },
-  { id: 'dancing-script', label: 'Dancing Script', family: '"Dancing Script Variable", cursive', vibe: 'Flowing cursive' },
-  { id: 'great-vibes', label: 'Great Vibes', family: '"Great Vibes", cursive', vibe: 'Romantic script' },
-  { id: 'kalam', label: 'Kalam', family: '"Kalam", cursive', vibe: 'Casual handwriting' },
-  { id: 'shadows-into-light', label: 'Shadows Into Light', family: '"Shadows Into Light", cursive', vibe: 'Intimate & light' },
-  { id: 'special-elite', label: 'Special Elite', family: '"Special Elite", serif', vibe: 'Typewriter' },
-  { id: 'cormorant', label: 'Cormorant', family: '"Cormorant Garamond Variable", serif', vibe: 'Elegant & literary' },
-  { id: 'lora', label: 'Lora', family: '"Lora Variable", serif', vibe: 'Warm literary serif' },
-]
-
-/** '' means "no custom font" → the letter keeps its current default look. */
-export const DEFAULT_FONT_ID = ''
-
-export function letterFontById(id: string): LetterFont | undefined {
-  if (!id) return undefined
-  return LETTER_FONTS.find((font) => font.id === id)
-}
+/** The single letter font. Cormorant Garamond Italic gives every letter an
+ * elegant, literary feel. */
+export const LETTER_FONT_FAMILY = '"Cormorant Garamond Variable", serif'
 
 /** Built-in backgrounds. All gradients reuse existing palette colors. */
 export const BACKGROUND_PRESETS: BackgroundPreset[] = [

@@ -3,7 +3,6 @@ import type { ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AudioAttachment } from './AudioAttachment'
 import { BackgroundPicker } from './BackgroundPicker'
-import { FontSelector } from './FontSelector'
 import { StickerLibrary } from './StickerLibrary'
 import { MAX_PHOTOS, MAX_STICKERS, nextDecorPosition } from '@/data/letterStudio'
 import { compressImage, isImageFile } from '@/utils/imageCompress'
@@ -17,7 +16,7 @@ interface LetterToolbarProps {
   onChange: (patch: Partial<LetterUpdate>) => void
 }
 
-type SectionId = 'background' | 'font' | 'stickers' | 'photos' | 'audio'
+type SectionId = 'background' | 'stickers' | 'photos' | 'audio'
 
 interface SectionProps {
   id: SectionId
@@ -77,13 +76,12 @@ function Section({ id, label, hint, open, onToggle, children }: SectionProps) {
 }
 
 /**
- * The Letter Studio toolbar: Background, Letter font, Stickers, Photos and
- * Music for this letter. Composes the individual pickers into the existing
- * letter editor.
+ * The Letter Studio toolbar: Background, Stickers, Photos and Music for this
+ * letter. Composes the individual pickers into the existing letter editor.
  */
 export function LetterToolbar({ letter, onChange }: LetterToolbarProps) {
   const [openIds, setOpenIds] = useState<Set<SectionId>>(
-    () => new Set(['background', 'font', 'stickers', 'photos', 'audio']),
+    () => new Set(['background', 'stickers', 'photos', 'audio']),
   )
   const photoInputRef = useRef<HTMLInputElement>(null)
   const [photoStatus, setPhotoStatus] = useState<'idle' | 'uploading' | 'error'>('idle')
@@ -154,16 +152,6 @@ export function LetterToolbar({ letter, onChange }: LetterToolbarProps) {
           letterId={letter.id}
           onChange={(background) => onChange({ background })}
         />
-      </Section>
-
-      <Section
-        id="font"
-        label="Letter font"
-        hint="For the writing"
-        open={openIds.has('font')}
-        onToggle={() => toggle('font')}
-      >
-        <FontSelector value={letter.font} onChange={(font) => onChange({ font })} />
       </Section>
 
       <Section

@@ -3,7 +3,7 @@ import type { Collection, CollectionLetter } from '@/services/types'
 /**
  * The built-in example collection, always reachable at /open/example.
  *
- * It's an ordinary `Collection` + eight ordinary `CollectionLetter`s, so the
+ * It's an ordinary `Collection` + six ordinary `CollectionLetter`s, so the
  * whole reading experience (cards, envelope, paper, studio styling) is exactly
  * the production one. It lives in code instead of the database so the demo can
  * never be deleted or break — a shortcut inside the services returns it before
@@ -12,9 +12,9 @@ import type { Collection, CollectionLetter } from '@/services/types'
 export const EXAMPLE_COLLECTION: Collection = {
   id: 'example-collection',
   slug: 'example',
-  title: 'Open When Life Gets Busy',
+  title: 'To the love of my life',
   description:
-    'A sample collection to show you how Open When Letters works — eight letters, each written for a different kind of moment. Open a few, see how it feels, then write your own.',
+    'A sample collection to show you how Open When Letters works. Six letters, each written for a different kind of moment. Open a few, see how it feels, then write your own.',
   coverImage: 1,
   theme: 'say-briefly',
   editToken: 'example-collection-token',
@@ -26,17 +26,9 @@ export const EXAMPLE_COLLECTION: Collection = {
   passwordHash: '',
   musicUrl: '',
   visibility: 'public',
+  from: 'Your person',
   userId: null,
 }
-
-const sticker = (
-  id: string,
-  emoji: string,
-  x: number,
-  y: number,
-  scale = 1,
-  rotation = 0,
-) => ({ id, emoji, x, y, scale, rotation })
 
 export const EXAMPLE_LETTERS: CollectionLetter[] = [
   {
@@ -64,7 +56,7 @@ The person who wrote this letter`,
     unlockAt: null,
     font: 'caveat',
     background: 'preset:blush-wash',
-    stickers: [sticker('s1', '☕', 76, 9, 1.15, 6), sticker('s2', '🍃', 14, 62, 0.95, -8)],
+    stickers: [],
     photos: [],
     audioUrl: '',
   },
@@ -93,7 +85,7 @@ The one who misses you back`,
     unlockAt: null,
     font: 'dancing-script',
     background: 'preset:teal-wash',
-    stickers: [sticker('s1', '💌', 77, 11, 1.1, -5), sticker('s2', '🌊', 16, 68, 1, 7)],
+    stickers: [],
     photos: [],
     audioUrl: '',
   },
@@ -122,7 +114,7 @@ Someone who believes in you`,
     unlockAt: null,
     font: 'shadows-into-light',
     background: 'preset:forest-mist',
-    stickers: [sticker('s1', '🌟', 78, 8, 1.15, 4), sticker('s2', '🍀', 12, 70, 1, -6)],
+    stickers: [],
     photos: [],
     audioUrl: '',
   },
@@ -151,7 +143,7 @@ Thinking of you`,
     unlockAt: null,
     font: 'lora',
     background: 'preset:dusk-lavender',
-    stickers: [sticker('s1', '🌙', 79, 10, 1.1, 5), sticker('s2', '🕯️', 15, 66, 0.95, -7)],
+    stickers: [],
     photos: [],
     audioUrl: '',
   },
@@ -180,7 +172,7 @@ All my love`,
     unlockAt: null,
     font: 'great-vibes',
     background: 'preset:blush-wash',
-    stickers: [sticker('s1', '💖', 76, 9, 1.15, -4), sticker('s2', '💫', 18, 64, 0.95, 9)],
+    stickers: [],
     photos: [],
     audioUrl: '',
   },
@@ -209,65 +201,7 @@ With love`,
     unlockAt: null,
     font: 'kalam',
     background: 'preset:sunshine-whisper',
-    stickers: [sticker('s1', '🎉', 77, 10, 1.1, 7), sticker('s2', '🎈', 13, 67, 0.95, -5)],
-    photos: [],
-    audioUrl: '',
-  },
-  {
-    id: 'example-alone',
-    collectionId: EXAMPLE_COLLECTION.id,
-    title: 'You Feel Alone',
-    trigger: 'For the moments when a full room can still feel empty.',
-    body: `Dear you,
-
-I know what it is like to feel alone even when you are surrounded. It is a heavy kind of quiet. You do not have to carry it by yourself.
-
-# You are not alone
-
-Someone out there is thinking of you right now. Someone keeps your messages and saves your voice. Distance does not change that.
-
-And this letter? It was written for exactly this moment \u2014 for you. So you would remember: you are never truly on your own.
-
----
-Reaching out,
-Always near`,
-    coverImage: 7,
-    position: 6,
-    createdAt: '2026-01-11T10:00:00.000Z',
-    unlockType: 'immediate',
-    unlockAt: null,
-    font: 'cormorant',
-    background: 'preset:mint-wash',
-    stickers: [sticker('s1', '🕊️', 78, 9, 1.1, -3), sticker('s2', '🔆', 16, 63, 0.95, 8)],
-    photos: [],
-    audioUrl: '',
-  },
-  {
-    id: 'example-just-because',
-    collectionId: EXAMPLE_COLLECTION.id,
-    title: 'You Just Want to Hear from Me',
-    trigger: 'For no reason at all \u2014 just because.',
-    body: `Dear you,
-
-No occasion. No bad day. Just a letter to say: I thought of you today, and it made me smile.
-
-# Just because
-
-Some of the best letters are the ones written for no reason \u2014 they come with no obligation, only love.
-
-So here is my day, the parts worth keeping: I smiled, I wished you were there, and I wrote this. That is all. That is everything.
-
----
-Just because,
-Yours always`,
-    coverImage: 8,
-    position: 7,
-    createdAt: '2026-01-12T10:00:00.000Z',
-    unlockType: 'immediate',
-    unlockAt: null,
-    font: 'special-elite',
-    background: 'preset:terracotta-glow',
-    stickers: [sticker('s1', '🎵', 77, 11, 1.1, 6), sticker('s2', '❤️', 15, 61, 1, -8)],
+    stickers: [],
     photos: [],
     audioUrl: '',
   },

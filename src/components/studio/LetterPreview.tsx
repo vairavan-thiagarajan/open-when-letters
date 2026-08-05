@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { AudioAttachment } from './AudioAttachment'
 import { LetterCanvas, type DecorSelection } from './LetterCanvas'
 import { RichText } from './RichText'
-import { backgroundCss, letterFontById } from '@/data/letterStudio'
+import { backgroundCss, LETTER_FONT_FAMILY } from '@/data/letterStudio'
 import { EASE } from '@/utils/anim'
 import { cn } from '@/utils/cn'
 import type {
@@ -61,7 +61,7 @@ const PHOTO_STYLES: { id: PhotoStyle; label: string }[] = [
 export function LetterPreview({ letter, onChange }: LetterPreviewProps) {
   const [selection, setSelection] = useState<DecorSelection | null>(null)
 
-  const font = letterFontById(letter.font)
+  const letterFontStyle = { fontFamily: LETTER_FONT_FAMILY, fontStyle: 'italic' }
   const hasBackground = Boolean(backgroundCss(letter.background))
 
   const selectedSticker =
@@ -136,18 +136,13 @@ export function LetterPreview({ letter, onChange }: LetterPreviewProps) {
               </p>
             </div>
 
-            <div style={font ? { fontFamily: font.family } : undefined}>
+            <div style={letterFontStyle}>
               <h2
-                style={font ? { fontFamily: font.family } : undefined}
-                className="mt-5 text-center font-display text-3xl leading-tight font-semibold text-ink sm:mt-6 sm:text-5xl"
+                style={letterFontStyle}
+                className="mt-8 text-center font-display text-3xl leading-tight font-semibold text-ink sm:mt-10 sm:text-5xl"
               >
                 {letter.title || 'Untitled letter'}
               </h2>
-              {letter.trigger && (
-                <p className="mx-auto mt-4 max-w-md text-center text-sm leading-relaxed text-ink-soft sm:text-base">
-                  {letter.trigger}
-                </p>
-              )}
 
               <div className="mx-auto my-8 flex max-w-xs items-center gap-4 sm:my-10" aria-hidden>
                 <span className="h-px flex-1 bg-line/70" />
@@ -155,7 +150,7 @@ export function LetterPreview({ letter, onChange }: LetterPreviewProps) {
                 <span className="h-px flex-1 bg-line/70" />
               </div>
 
-              <RichText body={letter.body} fontFamily={font?.family} />
+              <RichText body={letter.body} fontFamily={LETTER_FONT_FAMILY} />
             </div>
           </div>
 
