@@ -20,6 +20,7 @@ const accountLinks = [
   { to: '/collections', label: 'Collections' },
   { to: '/profile', label: 'Profile' },
   { to: '/design', label: 'Design' },
+  { to: '/about', label: 'About' },
 ]
 
 function ArrowIcon() {
