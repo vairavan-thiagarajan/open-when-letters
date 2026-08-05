@@ -101,7 +101,7 @@ export function LetterPreview({ letter, onChange }: LetterPreviewProps) {
 
   return (
     <div>
-      <div className="relative overflow-hidden rounded-[2rem] border border-line bg-paper shadow-[rgba(0,0,0,0.08)_0px_2px_8px_0px]">
+      <div className="letter-sheet relative aspect-[210/297] w-full overflow-hidden rounded-sm">
         {hasBackground && (
           <div
             aria-hidden
@@ -112,12 +112,15 @@ export function LetterPreview({ letter, onChange }: LetterPreviewProps) {
         <div
           aria-hidden
           className={cn(
-            'absolute inset-0',
-            hasBackground ? 'paper-grain bg-paper/85 backdrop-blur-[2px]' : 'bg-paper',
+            'paper-grain absolute inset-0',
+            hasBackground ? 'bg-paper/80 backdrop-blur-[2px]' : 'bg-paper/60',
           )}
         />
 
-        <div className="relative px-5 py-8 sm:px-10">
+        {/* faint fold crease near the top of the sheet */}
+        <span aria-hidden className="absolute inset-x-6 top-[9%] h-px bg-ink/5" />
+
+        <div className="relative px-7 py-12 sm:px-16 sm:py-16 lg:px-20">
           <LetterCanvas
             stickers={letter.stickers}
             photos={letter.photos}
@@ -128,7 +131,7 @@ export function LetterPreview({ letter, onChange }: LetterPreviewProps) {
 
           <div className="pointer-events-none relative select-none">
             <div className="text-center">
-              <p className="inline-flex items-center gap-2 rounded-full bg-blush px-3 py-1 text-[10px] font-semibold tracking-widest font-mono text-forest-ink uppercase">
+              <p className="inline-flex items-center gap-2 rounded-full bg-blush px-4 py-1.5 font-mono text-xs font-semibold tracking-widest text-forest-ink uppercase">
                 Open when
               </p>
             </div>
@@ -136,31 +139,38 @@ export function LetterPreview({ letter, onChange }: LetterPreviewProps) {
             <div style={font ? { fontFamily: font.family } : undefined}>
               <h2
                 style={font ? { fontFamily: font.family } : undefined}
-                className="mt-3 text-center font-display text-lg leading-tight font-semibold text-ink sm:text-2xl"
+                className="mt-5 text-center font-display text-3xl leading-tight font-semibold text-ink sm:mt-6 sm:text-5xl"
               >
                 {letter.title || 'Untitled letter'}
               </h2>
               {letter.trigger && (
-                <p className="mt-2 text-center text-xs text-mist">{letter.trigger}</p>
+                <p className="mx-auto mt-4 max-w-md text-center text-sm leading-relaxed text-ink-soft sm:text-base">
+                  {letter.trigger}
+                </p>
               )}
 
-              <div className="mx-auto my-5 flex items-center gap-4" aria-hidden>
-                <span className="h-px flex-1 bg-line" />
+              <div className="mx-auto my-8 flex max-w-xs items-center gap-4 sm:my-10" aria-hidden>
+                <span className="h-px flex-1 bg-line/70" />
                 <span className="text-forest-ink">♥</span>
-                <span className="h-px flex-1 bg-line" />
+                <span className="h-px flex-1 bg-line/70" />
               </div>
 
-              <div className="space-y-5">
-                <RichText body={letter.body} fontFamily={font?.family} />
-              </div>
+              <RichText body={letter.body} fontFamily={font?.family} />
             </div>
           </div>
 
           {letter.audioUrl && (
-            <div className="pointer-events-auto relative mt-5">
+            <div className="pointer-events-auto relative mt-8">
               <AudioAttachment value={letter.audioUrl} letterId={letter.id} />
             </div>
           )}
+
+          {/* closing space — mirrors the reader's blank tail */}
+          <div aria-hidden className="pointer-events-none mt-20 flex flex-col items-center gap-3 sm:mt-28">
+            <span className="text-forest-ink">♥</span>
+            <span className="h-px w-10 bg-line/60" />
+          </div>
+          <div aria-hidden className="pointer-events-none h-16 sm:h-24" />
         </div>
       </div>
 

@@ -29,12 +29,13 @@ interface RichTextProps {
 
 /**
  * Pure rendering of a letter body using the lightweight markup convention.
- * Shared by the reader and the editor preview so both always agree.
+ * Shared by the reader and the editor preview so both always agree. Typography
+ * matches the immersive reader's A4 paper sheet.
  */
 export function RichText({ body, fontFamily }: RichTextProps) {
   const blocks = parseBody(body)
   return (
-    <>
+    <div className="space-y-7 sm:space-y-9">
       {blocks.map((block, index) => {
         if (block.type === 'divider') {
           return (
@@ -43,9 +44,9 @@ export function RichText({ body, fontFamily }: RichTextProps) {
               className="mx-auto flex items-center gap-4"
               aria-hidden
             >
-              <span className="h-px flex-1 bg-line" />
+              <span className="h-px flex-1 bg-line/70" />
               <span className="text-forest-ink">♥</span>
-              <span className="h-px flex-1 bg-line" />
+              <span className="h-px flex-1 bg-line/70" />
             </div>
           )
         }
@@ -54,7 +55,7 @@ export function RichText({ body, fontFamily }: RichTextProps) {
             <h2
               key={index}
               style={fontFamily ? { fontFamily } : undefined}
-              className="font-display text-xl leading-snug font-semibold tracking-tight text-ink sm:text-2xl"
+              className="font-display text-2xl leading-snug font-semibold tracking-tight text-ink sm:text-[28px]"
             >
               <InlineText segments={block.segments} />
             </h2>
@@ -64,12 +65,12 @@ export function RichText({ body, fontFamily }: RichTextProps) {
           <p
             key={index}
             style={fontFamily ? { fontFamily } : undefined}
-            className="font-display text-sm leading-[1.75] whitespace-pre-line text-ink/90 sm:text-base"
+            className="font-display text-[15px] leading-[1.9] whitespace-pre-line text-ink/90 sm:text-[17px] sm:leading-[1.95]"
           >
             <InlineText segments={block.segments} />
           </p>
         )
       })}
-    </>
+    </div>
   )
 }
