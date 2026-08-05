@@ -10,7 +10,6 @@ import { EASE, springs } from '@/utils/anim'
 
 const publicLinks = [
   { to: '/', label: 'Home' },
-  { to: '/design', label: 'Design' },
   { to: '/about', label: 'About' },
   { to: '/login', label: 'Log in' },
 ]
@@ -18,7 +17,6 @@ const publicLinks = [
 const accountLinks = [
   { to: '/', label: 'Home' },
   { to: '/collections', label: 'Collections' },
-  { to: '/design', label: 'Design' },
   { to: '/about', label: 'About' },
   { to: '/profile', label: 'Profile' },
 ]
