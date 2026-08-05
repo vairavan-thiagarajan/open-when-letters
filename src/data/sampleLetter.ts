@@ -33,10 +33,7 @@ Someone who cares about you`,
   unlockAt: null,
   font: 'caveat',
   background: 'preset:blush-wash',
-  stickers: [
-    { id: 'sample-tulip', emoji: '🌷', x: 14, y: 86, scale: 1.1, rotation: 6 },
-    { id: 'sample-heart', emoji: '💛', x: 84, y: 88, scale: 1.15, rotation: -8 },
-  ],
+  stickers: [],
   photos: [],
   audioUrl: '',
 }
