@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import type { CollectionLetter } from '@/services/types'
 import { formatDate } from '@/utils/formatDate'
-import { FloatingHearts } from '@/components/effects/FloatingHearts'
 import { LetterCanvas } from '@/components/studio/LetterCanvas'
 import { InlineText } from '@/components/studio/RichText'
 import { AudioAttachment } from '@/components/studio/AudioAttachment'
@@ -12,150 +11,144 @@ import { cn } from '@/utils/cn'
 
 interface LetterViewProps {
   letter: CollectionLetter
-  onClose?: () => void
 }
 
-export function LetterView({ letter, onClose }: LetterViewProps) {
+/**
+ * The hero of the reading experience: a real sheet of paper.
+ *
+ * - A4 proportions (210:297) so short letters still look like a full page.
+ * - Minimal corner radius, warm paper texture and a layered, physical shadow.
+ * - Generous margins, comfortable line height and paragraph spacing.
+ * - A long blank tail so the letter never stops abruptly — it feels like a
+ *   printed page with room left on the sheet.
+ * - Stickers, photos, the chosen font and the audio attachment are preserved
+ *   exactly as the writer arranged them.
+ */
+export function LetterView({ letter }: LetterViewProps) {
   const blocks = parseBody(letter.body)
   const font = letterFontById(letter.font)
   const hasBackground = Boolean(backgroundCss(letter.background))
 
   return (
-    <div className="relative">
-      <FloatingHearts count={8} className="opacity-60" />
-
-      <div className="relative mx-auto max-w-2xl px-5 pb-8 sm:px-8">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-          className="flex justify-end"
-        >
-          {onClose && (
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label="Close letter"
-              className="grid h-11 w-11 place-items-center rounded-full border border-line bg-paper/80 text-ink-soft shadow-[rgba(0,0,0,0.05)_0px_1px_2px_0px] transition-colors hover:text-forest-ink"
-            >
-              <svg viewBox="0 0 24 24" fill="none" className="h-4.5 w-4.5" aria-hidden>
-                <path
-                  d="M6 6l12 12M18 6L6 18"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </button>
-          )}
-        </motion.div>
-
-        <motion.article
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.08, ease: EASE }}
-          className="relative mt-4 overflow-hidden rounded-[2rem] border border-line bg-paper shadow-[rgba(0,0,0,0.08)_0px_2px_8px_0px]"
-        >
-          {hasBackground && (
-            <div
-              aria-hidden
-              className="absolute inset-0"
-              style={{ background: backgroundCss(letter.background) }}
-            />
-          )}
+    <div className="relative mx-auto w-full max-w-[520px] px-4 sm:max-w-[640px] sm:px-6 lg:max-w-[820px]">
+      <motion.article
+        initial={{ opacity: 0, y: 44, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.8, ease: EASE }}
+        className="letter-sheet relative aspect-[210/297] w-full overflow-hidden rounded-sm"
+      >
+        {hasBackground && (
           <div
             aria-hidden
-            className={cn(
-              'absolute inset-0',
-              hasBackground ? 'paper-grain bg-paper/85 backdrop-blur-[2px]' : 'bg-paper',
-            )}
+            className="absolute inset-0"
+            style={{ background: backgroundCss(letter.background) }}
           />
+        )}
+        <div
+          aria-hidden
+          className={cn(
+            'paper-grain absolute inset-0',
+            hasBackground ? 'bg-paper/80 backdrop-blur-[2px]' : 'bg-paper/60',
+          )}
+        />
 
-          <div className="relative px-5 py-8 sm:px-14 sm:py-14">
-            <LetterCanvas stickers={letter.stickers} photos={letter.photos} readOnly />
+        {/* faint fold crease near the top of the sheet */}
+        <span aria-hidden className="absolute inset-x-6 top-[9%] h-px bg-ink/5" />
 
-            <div style={font ? { fontFamily: font.family } : undefined}>
-              <div className="text-center">
-                <p className="inline-flex items-center gap-2 rounded-full bg-blush px-4 py-1.5 text-xs font-semibold tracking-widest font-mono text-forest-ink uppercase">
-                  Open when
+        <div className="relative px-7 py-12 sm:px-16 sm:py-16 lg:px-20">
+          <LetterCanvas stickers={letter.stickers} photos={letter.photos} readOnly />
+
+          <div style={font ? { fontFamily: font.family } : undefined}>
+            <div className="text-center">
+              <p className="inline-flex items-center gap-2 rounded-full bg-blush px-4 py-1.5 font-mono text-xs font-semibold tracking-widest text-forest-ink uppercase">
+                Open when
+              </p>
+              <h1
+                style={font ? { fontFamily: font.family } : undefined}
+                className="mt-5 font-display text-3xl leading-tight font-semibold text-ink sm:mt-6 sm:text-5xl"
+              >
+                {letter.title}
+              </h1>
+              {letter.trigger && (
+                <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-ink-soft sm:text-base">
+                  {letter.trigger}
                 </p>
-                <h1
-                  style={font ? { fontFamily: font.family } : undefined}
-                  className="mt-4 font-display text-2xl leading-tight font-semibold text-ink sm:mt-5 sm:text-4xl"
-                >
-                  {letter.title}
-                </h1>
-                {letter.trigger && (
-                  <p className="mt-3 text-sm text-mist">{letter.trigger}</p>
-                )}
-                <p className="mt-2 text-xs text-mist">
-                  Sealed on {formatDate(letter.createdAt)}
-                </p>
-              </div>
-
-              <div className="mx-auto my-6 flex items-center gap-4 sm:my-9" aria-hidden>
-                <span className="h-px flex-1 bg-line" />
-                <span className="text-forest-ink">♥</span>
-                <span className="h-px flex-1 bg-line" />
-              </div>
-
-              {letter.audioUrl && (
-                <div className="mb-6">
-                  <AudioAttachment value={letter.audioUrl} letterId={letter.id} />
-                </div>
               )}
+              <p className="mt-3 font-mono text-xs tracking-wide text-mist">
+                Sealed on {formatDate(letter.createdAt)}
+              </p>
+            </div>
 
-              <div className="space-y-7">
-                {blocks.map((block, index) => {
-                  const delay = 0.25 + index * 0.14
-                  if (block.type === 'divider') {
-                    return (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay, ease: EASE }}
-                        className="mx-auto flex items-center gap-4"
-                        aria-hidden
-                      >
-                        <span className="h-px flex-1 bg-line" />
-                        <span className="text-forest-ink">♥</span>
-                        <span className="h-px flex-1 bg-line" />
-                      </motion.div>
-                    )
-                  }
-                  if (block.type === 'heading') {
-                    return (
-                      <motion.h2
-                        key={index}
-                        style={font ? { fontFamily: font.family } : undefined}
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay, ease: EASE }}
-                        className="font-display text-xl leading-snug font-semibold tracking-tight text-ink sm:text-2xl"
-                      >
-                        <InlineText segments={block.segments} />
-                      </motion.h2>
-                    )
-                  }
+            <div className="mx-auto my-8 flex max-w-xs items-center gap-4 sm:my-10" aria-hidden>
+              <span className="h-px flex-1 bg-line/70" />
+              <span className="text-forest-ink">♥</span>
+              <span className="h-px flex-1 bg-line/70" />
+            </div>
+
+            {letter.audioUrl && (
+              <div className="mb-8">
+                <AudioAttachment value={letter.audioUrl} letterId={letter.id} />
+              </div>
+            )}
+
+            <div className="space-y-7 sm:space-y-9">
+              {blocks.map((block, index) => {
+                const delay = 0.3 + index * 0.12
+                if (block.type === 'divider') {
                   return (
-                    <motion.p
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, delay, ease: EASE }}
+                      className="mx-auto flex items-center gap-4"
+                      aria-hidden
+                    >
+                      <span className="h-px flex-1 bg-line/70" />
+                      <span className="text-forest-ink">♥</span>
+                      <span className="h-px flex-1 bg-line/70" />
+                    </motion.div>
+                  )
+                }
+                if (block.type === 'heading') {
+                  return (
+                    <motion.h2
                       key={index}
                       style={font ? { fontFamily: font.family } : undefined}
-                      initial={{ opacity: 0, y: 16 }}
+                      initial={{ opacity: 0, y: 14 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay, ease: EASE }}
-                      className="font-display text-sm leading-[1.75] whitespace-pre-line text-ink/90 sm:text-base"
+                      className="font-display text-2xl leading-snug font-semibold tracking-tight text-ink sm:text-[28px]"
                     >
                       <InlineText segments={block.segments} />
-                    </motion.p>
+                    </motion.h2>
                   )
-                })}
-              </div>
+                }
+                return (
+                  <motion.p
+                    key={index}
+                    style={font ? { fontFamily: font.family } : undefined}
+                    initial={{ opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay, ease: EASE }}
+                    className="font-display text-[15px] leading-[1.9] whitespace-pre-line text-ink/90 sm:text-[17px] sm:leading-[1.95]"
+                  >
+                    <InlineText segments={block.segments} />
+                  </motion.p>
+                )
+              })}
             </div>
+
+            {/* closing space — generous blank paper below the last line so the
+                letter feels signed, finished and left with room to breathe */}
+            <div aria-hidden className="mt-20 flex flex-col items-center gap-3 sm:mt-28">
+              <span className="text-forest-ink">♥</span>
+              <span className="h-px w-10 bg-line/60" />
+            </div>
+            <div aria-hidden className="h-16 sm:h-24" />
           </div>
-        </motion.article>
-      </div>
+        </div>
+      </motion.article>
     </div>
   )
 }

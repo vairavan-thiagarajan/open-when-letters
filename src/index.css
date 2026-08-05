@@ -25,6 +25,13 @@
   --color-sticky-note-blush: #f6d0ff;
   --color-terracotta: #cb5521;
 
+  /* Kraft envelope paper — warm stationery tones derived from the cream +
+     terracotta palette so the envelope feels like a natural sibling of the
+     letter paper. */
+  --color-kraft: #e9d9b8;
+  --color-kraft-deep: #d8c39b;
+  --color-kraft-dark: #c3a878;
+
   /* ── Typography ──────────────────────────────────────────────── */
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Bricolage Grotesque Variable", "Archivo Black", ui-sans-serif, system-ui, sans-serif;
@@ -128,6 +135,31 @@ body {
       transparent 55%
     ),
     radial-gradient(ellipse at 80% 90%, rgb(26 51 0 / 0.03), transparent 55%);
+}
+
+/* Realistic letter sheet — warm paper with a soft, layered, physical shadow.
+   Used by the immersive reader so the paper reads as a real object floating
+   above a dark room rather than a flat UI card. */
+.letter-sheet {
+  background-color: var(--color-paper);
+  box-shadow:
+    0 1px 2px rgb(26 51 0 / 0.12),
+    0 12px 28px -8px rgb(26 51 0 / 0.38),
+    0 44px 88px -24px rgb(26 51 0 / 0.6);
+}
+
+/* Kraft envelope grain — mottled warm texture layered over the kraft gradient
+   so the envelope never reads as a flat vector shape. */
+.kraft-grain {
+  background-image: radial-gradient(
+      ellipse at 28% 14%,
+      rgb(255 255 255 / 0.28),
+      transparent 55%
+    ),
+    radial-gradient(ellipse at 74% 88%, rgb(74 52 20 / 0.16), transparent 55%),
+    radial-gradient(ellipse at 50% 45%, rgb(255 255 255 / 0.06), transparent 70%),
+    radial-gradient(ellipse at 90% 10%, rgb(74 52 20 / 0.08), transparent 40%),
+    radial-gradient(ellipse at 8% 60%, rgb(74 52 20 / 0.07), transparent 42%);
 }
 
 /* Footer marquee — CSS-driven so it runs on the compositor and stays in

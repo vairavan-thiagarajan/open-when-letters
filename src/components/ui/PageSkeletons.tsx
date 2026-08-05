@@ -161,14 +161,17 @@ export function CollectionPageSkeleton() {
   )
 }
 
-/** Letter reader — paper sheet while the reader chunk loads. */
+/** Letter reader — a real A4-style paper sheet while the reader chunk loads. */
 export function LetterReaderSkeleton() {
   return (
-    <div className="relative mx-auto max-w-2xl px-5 py-6 sm:px-8" aria-hidden>
-      <div className="paper-grain relative rounded-[2rem] border border-line bg-paper px-5 py-10 shadow-[rgba(0,0,0,0.08)_0px_2px_8px_0px] sm:px-14 sm:py-14">
+    <div
+      className="relative mx-auto w-full max-w-[520px] px-4 pt-4 sm:max-w-[640px] sm:px-6 lg:max-w-[820px]"
+      aria-hidden
+    >
+      <div className="letter-sheet relative aspect-[210/297] w-full overflow-hidden rounded-sm px-7 py-12 sm:px-16 sm:py-16 lg:px-20">
         <div className="flex flex-col items-center text-center">
           <Skeleton className="h-7 w-28 rounded-full" />
-          <Skeleton className="mt-5 h-9 w-3/4 rounded-2xl sm:h-14 sm:w-96" />
+          <Skeleton className="mt-5 h-10 w-3/4 rounded-2xl sm:h-16 sm:w-96" />
           <Skeleton className="mt-4 h-3.5 w-40 rounded-full" />
         </div>
         <div className="mx-auto my-8 flex w-full max-w-xs items-center gap-4">
@@ -176,7 +179,7 @@ export function LetterReaderSkeleton() {
           <Skeleton className="h-4 w-4 rounded-full" />
           <Skeleton className="h-px flex-1" />
         </div>
-        <div className="space-y-4">
+        <div className="space-y-5">
           <Bars lines={3} />
           <Bars lines={4} />
           <Bars lines={2} />
