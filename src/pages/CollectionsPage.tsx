@@ -14,6 +14,8 @@ import { collectionService } from '@/services/collectionService'
 import { clearCollectionOgImage } from '@/utils/ogImage'
 import { formatDate } from '@/utils/formatDate'
 import { EASE } from '@/utils/anim'
+import { EnvelopeThumb } from '@/components/letters/EnvelopeThumb'
+import { EXAMPLE_COLLECTION } from '@/data/exampleCollection'
 import type { Collection } from '@/services/types'
 
 export function CollectionsPage() {
@@ -90,6 +92,37 @@ export function CollectionsPage() {
               Every collection you create will live here, safe behind your
               account.
             </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.05, ease: EASE }}
+            className="mt-10 overflow-hidden rounded-2xl border border-dashed border-forest-ink/25 bg-cream/60"
+          >
+            <div className="flex flex-col items-center gap-6 p-6 sm:flex-row sm:p-8">
+              <Link
+                to="/open/example"
+                aria-label={`Open ${EXAMPLE_COLLECTION.title}`}
+                className="w-36 shrink-0 sm:w-44"
+              >
+                <EnvelopeThumb cover={EXAMPLE_COLLECTION.coverImage} locked />
+              </Link>
+              <div className="min-w-0 flex-1 text-center sm:text-left">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-highlighter-yellow/40 px-3 py-1 font-mono text-[11px] font-semibold tracking-widest text-forest-ink uppercase">
+                  Example collection
+                </span>
+                <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+                  {EXAMPLE_COLLECTION.title}
+                </h2>
+                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-soft">
+                  {EXAMPLE_COLLECTION.description}
+                </p>
+                <Link to="/open/example" className="mt-5 inline-block">
+                  <Button size="md">Explore the example</Button>
+                </Link>
+              </div>
+            </div>
           </motion.div>
 
           {collections === null && !error ? (

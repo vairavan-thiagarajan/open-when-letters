@@ -125,27 +125,20 @@ export function ExperienceSection() {
               ))}
             </ul>
 
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <Link to="/signup">
-                <Button size="lg">
-                  Create Your Own Collection
-                  <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4" aria-hidden>
-                    <path
-                      d="M5 12h14m0 0l-6-6m6 6l-6 6"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </Button>
-              </Link>
-              <Link to="/open/example">
-                <Button size="lg" variant="outline">
-                  See an example collection
-                </Button>
-              </Link>
-            </div>
+            <Link to="/signup" className="mt-10 inline-block">
+              <Button size="lg">
+                Create Your Own Collection
+                <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4" aria-hidden>
+                  <path
+                    d="M5 12h14m0 0l-6-6m6 6l-6 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Button>
+            </Link>
           </div>
         </Reveal>
       </div>
