@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Logo } from './Logo'
+import { ResourcesList } from './ResourcesMenu'
 import { useAuth } from '@/context/authContext'
 import { useToast } from '@/components/ui/toastContext'
 import { cn } from '@/utils/cn'
@@ -53,15 +54,20 @@ export function Navbar() {
   const { user, loading, signOut } = useAuth()
   const toast = useToast()
   const [open, setOpen] = useState(false)
+  const [resourcesOpen, setResourcesOpen] = useState(false)
   const [signingOut, setSigningOut] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
 
   useEffect(() => {
     setOpen(false)
+    setResourcesOpen(false)
   }, [location.pathname])
 
   const links = user ? accountLinks : publicLinks
+
+  const resourcesActive =
+    location.pathname === '/faq' || location.pathname === '/terms'
 
   const handleLogout = async () => {
     setSigningOut(true)
@@ -111,6 +117,70 @@ export function Navbar() {
                   )}
                 </NavLink>
               ))}
+            {!loading && (
+              <div
+                className="relative"
+                onMouseEnter={() => setResourcesOpen(true)}
+                onMouseLeave={() => setResourcesOpen(false)}
+              >
+                <button
+                  type="button"
+                  onClick={() => setResourcesOpen((value) => !value)}
+                  aria-haspopup="menu"
+                  aria-expanded={resourcesOpen}
+                  className="relative rounded-full px-3.5 py-1.5 text-sm font-medium tracking-tight transition-colors duration-200"
+                >
+                  {resourcesActive && (
+                    <motion.span
+                      layoutId="nav-active-pill"
+                      transition={springs.snappy}
+                      className="absolute inset-0 rounded-full bg-forest-ink shadow-soft"
+                    />
+                  )}
+                  <span
+                    className={cn(
+                      'relative z-10 inline-flex items-center gap-1 transition-colors duration-200',
+                      resourcesActive
+                        ? 'text-cream-paper'
+                        : 'text-ink-soft hover:text-ink',
+                    )}
+                  >
+                    Resources
+                    <motion.svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      animate={{ rotate: resourcesOpen ? 180 : 0 }}
+                      transition={{ duration: 0.2, ease: EASE }}
+                      className="h-3.5 w-3.5"
+                      aria-hidden
+                    >
+                      <path
+                        d="M6 9l6 6 6-6"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </motion.svg>
+                  </span>
+                </button>
+
+                <AnimatePresence>
+                  {resourcesOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 6, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                      transition={{ duration: 0.16, ease: EASE }}
+                      role="menu"
+                      className="absolute top-full left-0 z-50 mt-2 w-72 rounded-2xl border border-line bg-cream/95 p-2 shadow-lift backdrop-blur-xl"
+                    >
+                      <ResourcesList />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            )}
           </div>
           {!loading && (
             <>
@@ -199,6 +269,14 @@ export function Navbar() {
                     {link.label}
                   </NavLink>
                 ))}
+              {!loading && (
+                <div className="mt-1 border-t border-line pt-2">
+                  <p className="px-4 pt-1 pb-2 text-[11px] font-semibold tracking-widest font-mono text-mist uppercase">
+                    Resources
+                  </p>
+                  <ResourcesList onNavigate={() => setOpen(false)} />
+                </div>
+              )}
               {!loading &&
                 (user ? (
                   <button

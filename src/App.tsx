@@ -26,6 +26,12 @@ const AboutPage = lazy(() =>
 const DesignPage = lazy(() =>
   import('@/pages/DesignPage').then((module) => ({ default: module.DesignPage })),
 )
+const FaqPage = lazy(() =>
+  import('@/pages/FaqPage').then((module) => ({ default: module.FaqPage })),
+)
+const TermsPage = lazy(() =>
+  import('@/pages/TermsPage').then((module) => ({ default: module.TermsPage })),
+)
 const CreateCollectionPage = lazy(() =>
   import('@/pages/CreateCollectionPage').then((module) => ({
     default: module.CreateCollectionPage,
@@ -86,6 +92,8 @@ export default function App() {
               <Route path="/" element={withFallback(<LandingPage />)} />
               <Route path="/about" element={withFallback(<AboutPage />)} />
               <Route path="/design" element={withFallback(<DesignPage />)} />
+              <Route path="/faq" element={withFallback(<FaqPage />)} />
+              <Route path="/terms" element={withFallback(<TermsPage />)} />
               <Route path="/create" element={withFallback(<CreateCollectionPage />)} />
               <Route
                 path="/edit/:token"
