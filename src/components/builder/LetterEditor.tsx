@@ -173,7 +173,7 @@ export function LetterEditor({
         <button
           type="button"
           onClick={onDone}
-          className="inline-flex min-h-14 items-center gap-2 rounded-full bg-blush px-10 text-base font-semibold tracking-tight text-forest-ink shadow-[rgba(0,0,0,0.06)_0px_1px_3px_0px] transition-colors hover:bg-blush-deep"
+          className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-md bg-forest-ink px-10 text-base font-semibold tracking-tight text-cream-paper transition-colors hover:opacity-90"
         >
           Done
           <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4" aria-hidden>
