@@ -2,6 +2,7 @@ import { requireSupabase } from './supabase'
 import type { Database } from './database.types'
 import type { Collection, CollectionInput, Visibility } from './types'
 import { generateEditToken, randomSuffix, slugify } from '@/utils/slug'
+import { EXAMPLE_COLLECTION } from '@/data/exampleCollection'
 
 type CollectionRow = Database['public']['Tables']['collections']['Row']
 type CollectionInsert = Database['public']['Tables']['collections']['Insert']
@@ -96,6 +97,8 @@ export const collectionService = {
 
   /** Fetches a public collection by its unique slug. */
   async getBySlug(slug: string): Promise<Collection | null> {
+    if (slug === EXAMPLE_COLLECTION.slug) return EXAMPLE_COLLECTION
+
     const client = requireSupabase()
     const { data, error } = await client
       .from('collections')

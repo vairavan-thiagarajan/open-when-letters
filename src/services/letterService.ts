@@ -7,6 +7,7 @@ import type {
   StickerItem,
   UnlockType,
 } from './types'
+import { EXAMPLE_COLLECTION, EXAMPLE_LETTERS } from '@/data/exampleCollection'
 
 type LetterRow = Database['public']['Tables']['letters']['Row']
 
@@ -63,6 +64,8 @@ export type LetterUpdate = Partial<
 
 export const letterService = {
   async listByCollection(collectionId: string): Promise<CollectionLetter[]> {
+    if (collectionId === EXAMPLE_COLLECTION.id) return EXAMPLE_LETTERS
+
     const client = requireSupabase()
     const { data, error } = await client
       .from('letters')
