@@ -175,6 +175,25 @@ export function LetterEditor({
           <LetterPreview letter={letter} onChange={onChange} />
         </div>
       </div>
+
+      <div className="mt-6 flex justify-center border-t border-dashed border-line pt-6">
+        <button
+          type="button"
+          onClick={onDone}
+          className="inline-flex min-h-12 items-center gap-2 rounded-full bg-blush px-8 text-sm font-semibold tracking-tight text-forest-ink transition-colors hover:bg-blush-deep"
+        >
+          Done
+          <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4" aria-hidden>
+            <path
+              d="M5 12l5 5L20 7"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
     </motion.div>
   )
 }
