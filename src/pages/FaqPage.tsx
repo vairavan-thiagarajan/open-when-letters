@@ -8,6 +8,11 @@ import { cn } from '@/utils/cn'
 
 const faqs = [
   {
+    question: 'What is the story behind Open When Letters?',
+    answer:
+      'It started with two people who had so much to say to each other. When life got busy, the quiet moments to talk were few — so they made a place to leave words for each other: letters that wait until the moment they are needed. Open When Letters still works that way today, as a small way of being there for someone, even when you cannot be side by side.',
+  },
+  {
     question: 'What is Open When Letters?',
     answer:
       'Open When Letters is a little service for a big feeling. You write a small collection of letters — one for a bad day, one for missing someone, one for a small win — and share a single beautiful link. The person you love opens each letter exactly when they need it most. It is our way of helping words arrive at the right moment.',
