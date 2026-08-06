@@ -125,7 +125,7 @@ export function renderLayout({ appUrl, title, preheader, content }: LayoutOption
             <!-- Footer -->
             <tr>
               <td style="padding:24px 40px 36px 40px;border-top:1px solid ${COLORS.border};text-align:center;">
-                <p style="margin:0;font-family:${BODY_FONT};font-size:12px;line-height:1.7;color:${COLORS.inkSoft};">Made with <span style="color:${COLORS.ink};">&#10084;</span> for couples who want to stay close, even when life gets busy.</p>
+                <p style="margin:0;font-family:${BODY_FONT};font-size:12px;line-height:1.7;color:${COLORS.inkSoft};">Created by ${highlight('Vairavan Thiagarajan')} for couples who want to stay close, even when life gets busy.</p>
                 <p style="margin:14px 0 0 0;font-family:${BODY_FONT};font-size:12px;line-height:1.8;color:${COLORS.line};">
                   <a href="${escapeHtml(appUrl)}/privacy" style="color:${COLORS.ink};text-decoration:underline;">Privacy Policy</a>
                   <span style="color:${COLORS.line};">&nbsp;&#183;&nbsp;</span>
