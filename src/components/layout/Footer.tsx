@@ -265,7 +265,16 @@ export function Footer() {
             <HeartGlyph className="h-3.5 w-3.5 text-terracotta" />
             for the ones we love
           </p>
-          <p>Created by Vairavan Thiagarajan</p>
+          <p>
+            Created by{' '}
+            <span className="relative whitespace-nowrap font-medium text-cream-paper">
+              Vairavan Thiagarajan
+              <span
+                aria-hidden
+                className="absolute inset-x-[-3px] bottom-[1px] -z-10 block h-[55%] rounded-[3px] bg-highlighter-yellow/70"
+              />
+            </span>
+          </p>
         </div>
       </div>
     </footer>
