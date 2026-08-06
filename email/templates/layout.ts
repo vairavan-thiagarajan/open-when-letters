@@ -15,7 +15,7 @@
  */
 
 export const DISPLAY_FONT =
-  "'Bricolage Grotesque', Georgia, 'Times New Roman', serif"
+  "'Bricolage Grotesque', 'Archivo Black', 'Arial Black', Arial, sans-serif"
 export const BODY_FONT =
   "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
 export const MONO_FONT = "'Roboto Mono', 'Courier New', monospace"
@@ -92,7 +92,7 @@ export function renderLayout({ appUrl, title, preheader, content }: LayoutOption
   <meta name="color-scheme" content="light">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   <!--[if mso]>
     <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
   <![endif]-->
