@@ -53,6 +53,16 @@ const faqs = [
       'Your collections are private, and the only way anyone can reach them is through a link you choose to share. We keep the words you write so they can reach the right person, we never sell your data, and we store only what the service needs to do its job.',
   },
   {
+    question: 'Is the site secure?',
+    answer:
+      'Yes. The whole site is served over HTTPS, which encrypts your connection so letters and passwords are protected as they travel between your device and our servers. Passwords are stored as one-way hashes rather than in plain text, and access to the systems that hold your words is kept to the bare minimum the service needs to run.',
+  },
+  {
+    question: 'Can you read my letters or see my password?',
+    answer:
+      'Passwords are stored only as one-way hashes, so no one \u2014 including us \u2014 can read them back. Your letters are kept only so they can reach the right person, and we never read them. A collection can only be opened by someone who has the link you shared, and the password if you added one, so your words go exactly where you send them.',
+  },
+  {
     question: 'Can I use Open When Letters on my phone?',
     answer:
       'Yes, everything runs in the browser, so letters look and feel just right on phones, tablets and desktops. Wherever you happen to be, a letter can find you.',
