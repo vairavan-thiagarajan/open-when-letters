@@ -78,88 +78,90 @@ const withFallback = (element: React.ReactNode, fallback: React.ReactNode = <Rou
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(isSupabaseConfigured)
+  const [appReady, setAppReady] = useState(!isSupabaseConfigured)
 
   return (
     <>
       <ScrollToTop />
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={() => setAppReady(true)}>
         {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
       </AnimatePresence>
-      {isSupabaseConfigured ? (
-        <AuthProvider>
-          <AnimatedRoutes>
-            <Routes>
-              <Route path="/" element={withFallback(<LandingPage />)} />
-              <Route path="/about" element={withFallback(<AboutPage />)} />
-              <Route path="/design" element={withFallback(<DesignPage />)} />
-              <Route path="/faq" element={withFallback(<FaqPage />)} />
-              <Route path="/terms" element={withFallback(<TermsPage />)} />
-              <Route path="/create" element={withFallback(<CreateCollectionPage />)} />
-              <Route
-                path="/edit/:token"
-                element={
-                  withFallback(
-                    <ProtectedRoute>
-                      <BuilderPage />
-                    </ProtectedRoute>,
-                    <BuilderPageSkeleton />,
-                  )
-                }
-              />
-              <Route
-                path="/open/:slug"
-                element={withFallback(<CollectionPage />, <CollectionPageSkeleton />)}
-              />
-              <Route path="/login" element={withFallback(<LoginPage />, <AuthPageSkeleton />)} />
-              <Route path="/signup" element={withFallback(<SignupPage />, <AuthPageSkeleton />)} />
-              <Route
-                path="/forgot-password"
-                element={withFallback(<ForgotPasswordPage />, <AuthPageSkeleton />)}
-              />
-              <Route
-                path="/reset-password"
-                element={withFallback(<ResetPasswordPage />, <AuthPageSkeleton />)}
-              />
-              <Route
-                path="/collections"
-                element={
-                  withFallback(
-                    <ProtectedRoute>
-                      <CollectionsPage />
-                    </ProtectedRoute>,
-                    <CollectionsPageSkeleton />,
-                  )
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  withFallback(
-                    <ProtectedRoute>
-                      <ProfilePage />
-                    </ProtectedRoute>,
-                    <AccountPageSkeleton />,
-                  )
-                }
-              />
-              <Route
-                path="/settings"
-                element={
-                  withFallback(
-                    <ProtectedRoute>
-                      <SettingsPage />
-                    </ProtectedRoute>,
-                    <AccountPageSkeleton />,
-                  )
-                }
-              />
-              <Route path="*" element={withFallback(<NotFoundPage />)} />
-            </Routes>
-          </AnimatedRoutes>
-        </AuthProvider>
-      ) : (
-        <SetupScreen />
-      )}
+      {appReady &&
+        (isSupabaseConfigured ? (
+          <AuthProvider>
+            <AnimatedRoutes>
+              <Routes>
+                <Route path="/" element={withFallback(<LandingPage />)} />
+                <Route path="/about" element={withFallback(<AboutPage />)} />
+                <Route path="/design" element={withFallback(<DesignPage />)} />
+                <Route path="/faq" element={withFallback(<FaqPage />)} />
+                <Route path="/terms" element={withFallback(<TermsPage />)} />
+                <Route path="/create" element={withFallback(<CreateCollectionPage />)} />
+                <Route
+                  path="/edit/:token"
+                  element={
+                    withFallback(
+                      <ProtectedRoute>
+                        <BuilderPage />
+                      </ProtectedRoute>,
+                      <BuilderPageSkeleton />,
+                    )
+                  }
+                />
+                <Route
+                  path="/open/:slug"
+                  element={withFallback(<CollectionPage />, <CollectionPageSkeleton />)}
+                />
+                <Route path="/login" element={withFallback(<LoginPage />, <AuthPageSkeleton />)} />
+                <Route path="/signup" element={withFallback(<SignupPage />, <AuthPageSkeleton />)} />
+                <Route
+                  path="/forgot-password"
+                  element={withFallback(<ForgotPasswordPage />, <AuthPageSkeleton />)}
+                />
+                <Route
+                  path="/reset-password"
+                  element={withFallback(<ResetPasswordPage />, <AuthPageSkeleton />)}
+                />
+                <Route
+                  path="/collections"
+                  element={
+                    withFallback(
+                      <ProtectedRoute>
+                        <CollectionsPage />
+                      </ProtectedRoute>,
+                      <CollectionsPageSkeleton />,
+                    )
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    withFallback(
+                      <ProtectedRoute>
+                        <ProfilePage />
+                      </ProtectedRoute>,
+                      <AccountPageSkeleton />,
+                    )
+                  }
+                />
+                <Route
+                  path="/settings"
+                  element={
+                    withFallback(
+                      <ProtectedRoute>
+                        <SettingsPage />
+                      </ProtectedRoute>,
+                      <AccountPageSkeleton />,
+                    )
+                  }
+                />
+                <Route path="*" element={withFallback(<NotFoundPage />)} />
+              </Routes>
+            </AnimatedRoutes>
+          </AuthProvider>
+        ) : (
+          <SetupScreen />
+        ))}
     </>
   )
 }
