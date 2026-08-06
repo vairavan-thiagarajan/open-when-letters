@@ -1,0 +1,7 @@
+# Netlify configuration
+# Edge function serves real Open Graph metadata to link-preview crawlers
+# for shared collection links (/open/:slug). Real browsers continue to the
+# SPA via the _redirects fallback.
+[[edge_functions]]
+path = "/open/*"
+function = "og-preview"

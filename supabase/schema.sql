@@ -82,10 +82,16 @@ create trigger letters_touch_collection
   for each row execute function public.touch_collection();
 
 -- ----------------------------------------------------------------------------
--- Storage: public bucket for letter memories
+-- Storage: public buckets
+--   memories  — letter memories
+--   og-images — client-generated Open Graph cards (see utils/ogImage.ts)
 -- ----------------------------------------------------------------------------
 insert into storage.buckets (id, name, public)
 values ('memories', 'memories', true)
+on conflict (id) do nothing;
+
+insert into storage.buckets (id, name, public)
+values ('og-images', 'og-images', true)
 on conflict (id) do nothing;
 
 -- ----------------------------------------------------------------------------

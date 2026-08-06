@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /edit/
+Disallow: /collections
+Disallow: /profile
+Disallow: /settings
+Disallow: /login
+Disallow: /signup
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /404
+
+Sitemap: https://openwhenletters.in/sitemap.xml

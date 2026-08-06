@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { AnimatedRoutes } from '@/components/layout/AnimatedRoutes'
 import { ScrollToTop } from '@/components/layout/ScrollToTop'
@@ -67,6 +67,9 @@ const ProfilePage = lazy(() =>
 )
 const SettingsPage = lazy(() =>
   import('@/pages/SettingsPage').then((module) => ({ default: module.SettingsPage })),
+)
+const NotFoundPage = lazy(() =>
+  import('@/pages/NotFoundPage').then((module) => ({ default: module.NotFoundPage })),
 )
 
 const withFallback = (element: React.ReactNode, fallback: React.ReactNode = <RouteFallback />) => (
@@ -150,7 +153,7 @@ export default function App() {
                   )
                 }
               />
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="*" element={withFallback(<NotFoundPage />)} />
             </Routes>
           </AnimatedRoutes>
         </AuthProvider>

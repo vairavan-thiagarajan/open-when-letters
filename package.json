@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "og:generate": "node scripts/generate-og.mjs",
-    "predev": "npm run og:generate",
+    "seo:generate": "node scripts/generate-seo.mjs",
+    "predev": "npm run og:generate && npm run seo:generate",
     "dev": "vite",
-    "prebuild": "npm run og:generate",
+    "prebuild": "npm run og:generate && npm run seo:generate",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
