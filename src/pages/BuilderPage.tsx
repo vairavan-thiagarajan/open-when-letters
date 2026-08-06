@@ -8,6 +8,7 @@ import { ShareButton } from '@/components/ui/ShareButton'
 import { QRCodeCard } from '@/components/ui/QRCode'
 import { LetterEditor } from '@/components/builder/LetterEditor'
 import { EmptyState } from '@/components/ui/EmptyState'
+import { EmailShareCard } from '@/components/builder/EmailShareCard'
 import { BuilderPageSkeleton } from '@/components/ui/PageSkeletons'
 import { ThemedSurface } from '@/components/theme/ThemedSurface'
 import { SettingsModal } from '@/components/builder/SettingsModal'
@@ -518,6 +519,10 @@ export function BuilderPage() {
                       className="w-full sm:w-auto"
                     />
                   </div>
+                </div>
+
+                <div>
+                  <EmailShareCard slug={publishSlug} title={collection?.title ?? ''} />
                 </div>
 
                 <div>

@@ -95,6 +95,29 @@ values ('og-images', 'og-images', true)
 on conflict (id) do nothing;
 
 -- ----------------------------------------------------------------------------
+-- email_log — delivery log + dedup for the Resend email system.
+-- The server writes here via the service role key (RLS keeps clients out).
+-- ----------------------------------------------------------------------------
+create table if not exists public.email_log (
+  id          uuid primary key default gen_random_uuid(),
+  dedupe_key  text not null unique,
+  event       text not null,
+  recipient   text not null,
+  status      text not null check (status in ('sent', 'failed')),
+  error       text not null default '',
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
+);
+
+create index if not exists email_log_status_idx
+  on public.email_log (status);
+
+create index if not exists email_log_created_at_idx
+  on public.email_log (created_at desc);
+
+alter table public.email_log enable row level security;
+
+-- ----------------------------------------------------------------------------
 -- Row Level Security
 --
 -- MVP: no auth. Anyone may read, and writes are only reachable through the

@@ -4,11 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "logo:generate": "node scripts/generate-logo.mjs",
     "og:generate": "node scripts/generate-og.mjs",
     "seo:generate": "node scripts/generate-seo.mjs",
-    "predev": "npm run og:generate && npm run seo:generate",
+    "predev": "npm run logo:generate && npm run og:generate && npm run seo:generate",
     "dev": "vite",
-    "prebuild": "npm run og:generate && npm run seo:generate",
+    "prebuild": "npm run logo:generate && npm run og:generate && npm run seo:generate",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
@@ -32,6 +33,7 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.2",
+    "resend": "^6.18.1",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {

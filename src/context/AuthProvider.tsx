@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { AuthError, Session, User } from '@supabase/supabase-js'
 import { REMEMBER_ME_KEY, requireSupabase, supabase } from '@/services/supabase'
+import { sendWelcomeEmail } from '@/services/email'
 import { AuthContext, type AuthContextValue, type SignUpResult } from './authContext'
 
 function friendlyError(error: AuthError | Error | null | undefined): string {
@@ -100,6 +101,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         options: { emailRedirectTo: `${window.location.origin}/login?verified=1` },
       })
       if (error) throw new Error(friendlyError(error))
+      sendWelcomeEmail(email)
       return { needsEmailConfirmation: !data.session }
     },
     [],
