@@ -54,6 +54,13 @@ const svg = `
     <circle cx="1040" cy="560" r="6"/><circle cx="1080" cy="560" r="6"/><circle cx="1120" cy="560" r="6"/>
   </g>
 
+  <!-- logo mark -->
+  <g>
+    <rect x="80" y="70" width="96" height="96" rx="30" fill="#ffe95c"/>
+    <rect x="90" y="90" width="76" height="56" rx="14" fill="#1a3300"/>
+    <path d="M96 102 L128 124 L160 102" fill="none" stroke="#fcfaf5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
   <!-- floating hearts -->
   <g fill="#1a3300" opacity="0.8">
     <path d="M140 250 C 137 243 130 240 130 235 C 130 231 134 229 137 229 C 139 229 140 230 140 231 C 140 230 141 229 143 229 C 146 229 150 231 150 235 C 150 240 143 243 140 250 Z" transform="rotate(-12 140 240)"/>

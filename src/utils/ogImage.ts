@@ -70,6 +70,26 @@ function drawHeart(ctx: CanvasRenderingContext2D, x: number, y: number, size: nu
   ctx.fill()
 }
 
+/** The logo mark: a yellow tile with a sealed envelope, same as the navbar. */
+function drawLogo(ctx: CanvasRenderingContext2D, x: number, y: number, size: number) {
+  const s = size / 24
+  ctx.fillStyle = '#ffe95c'
+  roundedRect(ctx, x, y, size, size, size * 0.3)
+  ctx.fill()
+  ctx.fillStyle = '#1a3300'
+  roundedRect(ctx, x + 2.5 * s, y + 5 * s, 19 * s, 14 * s, 3.5 * s)
+  ctx.fill()
+  ctx.strokeStyle = '#fcfaf5'
+  ctx.lineWidth = 2 * s
+  ctx.lineCap = 'round'
+  ctx.lineJoin = 'round'
+  ctx.beginPath()
+  ctx.moveTo(x + 4 * s, y + 8 * s)
+  ctx.lineTo(x + 12 * s, y + 13.5 * s)
+  ctx.lineTo(x + 20 * s, y + 8 * s)
+  ctx.stroke()
+}
+
 function drawCard(title: string): HTMLCanvasElement {
   const W = 1200
   const H = 630
@@ -98,6 +118,8 @@ function drawCard(title: string): HTMLCanvasElement {
 
   drawHeart(ctx, 150, 245, 26, 'rgba(26,51,0,0.8)')
   drawHeart(ctx, 1055, 150, 26, '#cb5521')
+
+  drawLogo(ctx, 84, 70, 96)
 
   // Envelope
   const env = { x: 455, y: 175, w: 290, h: 225, r: 18 }
