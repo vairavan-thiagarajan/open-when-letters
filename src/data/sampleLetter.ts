@@ -35,5 +35,4 @@ Someone who cares about you`,
   background: 'preset:blush-wash',
   stickers: [],
   photos: [],
-  audioUrl: '',
 }

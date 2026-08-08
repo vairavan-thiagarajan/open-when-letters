@@ -72,8 +72,6 @@ export interface CollectionLetter {
   stickers: StickerItem[]
   /** Decorative photos placed on the letter paper. */
   photos: PhotoItem[]
-  /** Optional per-letter audio URL ('' = none). */
-  audioUrl: string
 }
 
 export interface CollectionInput {
@@ -96,7 +94,6 @@ export interface LetterInput {
   background?: string
   stickers?: StickerItem[]
   photos?: PhotoItem[]
-  audioUrl?: string
 }
 
 export interface LetterSchedule {

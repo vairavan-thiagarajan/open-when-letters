@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { AudioAttachment } from './AudioAttachment'
 import { LetterCanvas, type DecorSelection } from './LetterCanvas'
 import { RichText } from './RichText'
 import { backgroundCss, LETTER_FONT_FAMILY } from '@/data/letterStudio'
@@ -54,8 +53,8 @@ const PHOTO_STYLES: { id: PhotoStyle; label: string }[] = [
 ]
 
 /**
- * Live paper preview inside the editor. Shows the background, font, body,
- * audio and the decorations layer — stickers & photos are draggable
+ * Live paper preview inside the editor. Shows the background, font, body
+ * and the decorations layer — stickers & photos are draggable
  * here, and the selected item gets size / rotate / style / delete controls.
  */
 export function LetterPreview({ letter, onChange }: LetterPreviewProps) {
@@ -153,12 +152,6 @@ export function LetterPreview({ letter, onChange }: LetterPreviewProps) {
               <RichText body={letter.body} fontFamily={LETTER_FONT_FAMILY} />
             </div>
           </div>
-
-          {letter.audioUrl && (
-            <div className="pointer-events-auto relative mt-8">
-              <AudioAttachment value={letter.audioUrl} letterId={letter.id} />
-            </div>
-          )}
 
           {/* closing space — mirrors the reader's blank tail */}
           <div aria-hidden className="pointer-events-none mt-20 flex flex-col items-center gap-3 sm:mt-28">

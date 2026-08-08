@@ -3,7 +3,6 @@ import type { CollectionLetter } from '@/services/types'
 import { formatDate } from '@/utils/formatDate'
 import { LetterCanvas } from '@/components/studio/LetterCanvas'
 import { InlineText } from '@/components/studio/RichText'
-import { AudioAttachment } from '@/components/studio/AudioAttachment'
 import { backgroundCss, LETTER_FONT_FAMILY } from '@/data/letterStudio'
 import { parseBody } from '@/utils/markup'
 import { EASE } from '@/utils/anim'
@@ -23,8 +22,7 @@ interface LetterViewProps {
  * - Generous margins, comfortable line height and paragraph spacing.
  * - A long blank tail so the letter never stops abruptly — it feels like a
  *   printed page with room left on the sheet.
- * - Stickers, photos, the chosen font and the audio attachment are preserved
- *   exactly as the writer arranged them.
+ * - Stickers and photos are preserved exactly as the writer arranged them.
  */
 export function LetterView({ letter }: LetterViewProps) {
   const blocks = parseBody(letter.body)
@@ -85,12 +83,6 @@ export function LetterView({ letter }: LetterViewProps) {
                 <span className="text-forest-ink">♥</span>
                 <span className="h-px flex-1 bg-line/70" />
               </div>
-
-              {letter.audioUrl && (
-                <div className="mb-8">
-                  <AudioAttachment value={letter.audioUrl} letterId={letter.id} />
-                </div>
-              )}
 
               <div className="space-y-7 sm:space-y-9">
                 {blocks.map((block, index) => {

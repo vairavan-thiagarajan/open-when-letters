@@ -1,14 +1,11 @@
 import { supabase } from './supabase'
 
 /**
- * Persists Letter Studio assets (background images, decorative photos, audio)
- * into the public `letter-decor` bucket.
+ * Persists Letter Studio assets (background images, decorative photos) into
+ * the public `letter-decor` bucket.
  *
  * Backgrounds & photos are uploaded best-effort with a data-URL fallback so
- * the feature still works when Supabase storage is unavailable. Audio is
- * stored only in the bucket — a base-64 fallback would bloat the letters row
- * on every autosave — so audio uploads surface an error when storage is not
- * reachable.
+ * the feature still works when Supabase storage is unavailable.
  */
 
 const BUCKET = 'letter-decor'
@@ -19,14 +16,6 @@ function extFromBlob(blob: Blob): string {
     'image/webp': 'webp',
     'image/jpeg': 'jpg',
     'image/png': 'png',
-    'audio/mpeg': 'mp3',
-    'audio/mp3': 'mp3',
-    'audio/wav': 'wav',
-    'audio/aac': 'aac',
-    'audio/webm': 'webm',
-    'audio/ogg': 'ogg',
-    'audio/mp4': 'm4a',
-    'audio/x-m4a': 'm4a',
   }
   return map[type] ?? 'bin'
 }
@@ -59,20 +48,6 @@ export async function uploadDecorImage(
   }
 
   return readAsDataURL(blob)
-}
-
-/** Uploads an audio blob and returns its public URL (requires storage). */
-export async function uploadDecorAudio(blob: Blob, letterId: string): Promise<string> {
-  const path = `${letterId}/audio-${Date.now()}.${extFromBlob(blob)}`
-  if (!supabase) throw new Error('Audio needs cloud storage to be configured')
-
-  const { error } = await supabase.storage
-    .from(BUCKET)
-    .upload(path, blob, { contentType: blob.type, upsert: true })
-  if (error) throw new Error('Could not upload the audio file')
-
-  const { data } = supabase.storage.from(BUCKET).getPublicUrl(path)
-  return data.publicUrl
 }
 
 /** Best-effort cleanup of a previously stored decor asset. */

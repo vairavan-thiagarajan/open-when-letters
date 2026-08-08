@@ -11,7 +11,7 @@ const sections = [
   },
   {
     title: '2. What we collect',
-    body: 'When you create an account we keep your email address and a one-way hash of your password, so it can never be read back. When you write letters, photos, audio or collection details, those are stored so the service can do its job and nothing more. We also keep basic, anonymous technical logs so the site stays reliable and secure.',
+    body: 'When you create an account we keep your email address and a one-way hash of your password, so it can never be read back. When you write letters, photos or collection details, those are stored so the service can do its job and nothing more. We also keep basic, anonymous technical logs so the site stays reliable and secure.',
   },
   {
     title: '3. Emails we send',

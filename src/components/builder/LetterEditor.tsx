@@ -141,7 +141,7 @@ export function LetterEditor({
             <span className="text-sm font-medium tracking-tight text-ink">
               Letter studio
             </span>
-            <span className="text-xs text-mist">Background, font, stickers, photos &amp; music</span>
+            <span className="text-xs text-mist">Background, font, stickers &amp; photos</span>
           </div>
           <LetterToolbar letter={letter} onChange={onChange} />
         </div>

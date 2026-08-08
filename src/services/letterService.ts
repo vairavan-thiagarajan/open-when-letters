@@ -40,7 +40,6 @@ function mapRow(row: LetterRow): CollectionLetter {
     background: row.background || '',
     stickers: parseJsonArray(row.stickers) as StickerItem[],
     photos: parseJsonArray(row.photos) as PhotoItem[],
-    audioUrl: row.audio_url || '',
   }
 }
 
@@ -58,7 +57,6 @@ export type LetterUpdate = Partial<
     | 'background'
     | 'stickers'
     | 'photos'
-    | 'audioUrl'
   >
 >
 
@@ -107,7 +105,6 @@ export const letterService = {
     if (input.background !== undefined) insertData.background = input.background
     if (input.stickers !== undefined) insertData.stickers = input.stickers
     if (input.photos !== undefined) insertData.photos = input.photos
-    if (input.audioUrl !== undefined) insertData.audio_url = input.audioUrl
 
     const { data, error } = await client
       .from('letters')
@@ -139,7 +136,6 @@ export const letterService = {
           stickers: JSON.stringify(patch.stickers),
         }),
         ...(patch.photos !== undefined && { photos: JSON.stringify(patch.photos) }),
-        ...(patch.audioUrl !== undefined && { audio_url: patch.audioUrl }),
       })
       .eq('id', id)
 

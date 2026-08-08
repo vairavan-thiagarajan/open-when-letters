@@ -43,9 +43,9 @@ const faqs = [
       'Of course. You can return to the builder whenever you like to edit a letter, change when it opens, delete it, or add more letters. Nothing is set in stone. We want you to feel at ease the whole way through.',
   },
   {
-    question: 'Can I add photos, stickers, music or handwriting?',
+    question: 'Can I add photos, stickers or handwriting?',
     answer:
-      'Yes! The letter studio lets you pick paper backgrounds and fonts, add stickers and photos, and even attach a short voice message. We want every letter to feel like it was made by hand, with love.',
+      'Yes! The letter studio lets you pick paper backgrounds and fonts, and add stickers and photos. We want every letter to feel like it was made by hand, with love.',
   },
   {
     question: 'Is my data private?',

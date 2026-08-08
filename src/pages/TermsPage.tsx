@@ -15,7 +15,7 @@ const sections = [
   },
   {
     title: '3. Your content',
-    body: 'The letters, photos, audio and anything else you create remain yours, always. We only ask for the limited permission needed to store, process and deliver them so the service can do its job, and nothing more. Please share only what is yours to share and what respects other people\u2019s rights.',
+    body: 'The letters, photos and anything else you create remain yours, always. We only ask for the limited permission needed to store, process and deliver them so the service can do its job, and nothing more. Please share only what is yours to share and what respects other people\u2019s rights.',
   },
   {
     title: '4. What you may not do',

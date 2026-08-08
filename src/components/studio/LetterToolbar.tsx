@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { AudioAttachment } from './AudioAttachment'
 import { BackgroundPicker } from './BackgroundPicker'
 import { StickerLibrary } from './StickerLibrary'
 import { MAX_PHOTOS, MAX_STICKERS, nextDecorPosition } from '@/data/letterStudio'
@@ -16,7 +15,7 @@ interface LetterToolbarProps {
   onChange: (patch: Partial<LetterUpdate>) => void
 }
 
-type SectionId = 'background' | 'stickers' | 'photos' | 'audio'
+type SectionId = 'background' | 'stickers' | 'photos'
 
 interface SectionProps {
   id: SectionId
@@ -76,12 +75,12 @@ function Section({ id, label, hint, open, onToggle, children }: SectionProps) {
 }
 
 /**
- * The Letter Studio toolbar: Background, Stickers, Photos and Music for this
+ * The Letter Studio toolbar: Background, Stickers and Photos for this
  * letter. Composes the individual pickers into the existing letter editor.
  */
 export function LetterToolbar({ letter, onChange }: LetterToolbarProps) {
   const [openIds, setOpenIds] = useState<Set<SectionId>>(
-    () => new Set(['background', 'stickers', 'photos', 'audio']),
+    () => new Set(['background', 'stickers', 'photos']),
   )
   const photoInputRef = useRef<HTMLInputElement>(null)
   const [photoStatus, setPhotoStatus] = useState<'idle' | 'uploading' | 'error'>('idle')
@@ -203,20 +202,6 @@ export function LetterToolbar({ letter, onChange }: LetterToolbarProps) {
             </p>
           )}
         </div>
-      </Section>
-
-      <Section
-        id="audio"
-        label="Music for this letter"
-        hint={letter.audioUrl ? 'Added' : 'Optional'}
-        open={openIds.has('audio')}
-        onToggle={() => toggle('audio')}
-      >
-        <AudioAttachment
-          value={letter.audioUrl}
-          letterId={letter.id}
-          onChange={(audioUrl) => onChange({ audioUrl })}
-        />
       </Section>
     </div>
   )
